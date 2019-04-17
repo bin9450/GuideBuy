@@ -7,7 +7,7 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
 
 @SpringBootApplication
-@MapperScan("com.upc.Mapper")
+@MapperScan("com.upc.mapper")
 @EnableNeo4jRepositories
 
 public class MainApplication {

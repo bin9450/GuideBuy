@@ -3,7 +3,7 @@ server:
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapping.xml
-  type-aliases-package: com.upc.Entity
+  type-aliases-package: com.upc.entity
 
 spring:
   datasource:
