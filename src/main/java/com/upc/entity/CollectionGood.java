@@ -12,7 +12,7 @@ import java.util.Date;
  **/
 
 @Data
-public class Collection {
+public class CollectionGood {
 
     private Integer id;
     private String  userId;

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:
  **/
 
-@RestController
-@RequestMapping("/Collection")
+/*@RestController
+@RequestMapping("/CollectionGood")*/
 public class CollectionController {
     @Autowired
     CollectionService collectionService;

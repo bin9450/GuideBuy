@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @Description:
  **/
 
-@Repository
-public class CollectionMapper {
+/*@Repository*/
+public interface CollectionMapper {
 
 }

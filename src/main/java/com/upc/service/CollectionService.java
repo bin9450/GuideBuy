@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
  * @Description:
  **/
 
-@Service
+/*@Service*/
 public class CollectionService {
 
-    @Autowired
-    CollectionMapper collectionMapper;
+/*    @Autowired
+    CollectionMapper collectionMapper;*/
 }

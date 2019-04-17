@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
  * @Description:
  **/
 
-@Service
+/*@Service*/
 public class CollectionRelationService {
-    private final static Logger LOG = LoggerFactory.getLogger(CompanyService.class);
+/*    private final static Logger LOG = LoggerFactory.getLogger(CompanyService.class);
 
     private final CollectionRelationRepository collectionRelationRepository;
 
     public CollectionRelationService(CollectionRelationRepository collectionRelationRepository) {
         this.collectionRelationRepository = collectionRelationRepository;
-    }
+    }*/
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 
 
-@RestController
-@RequestMapping("/CollectionRelation")
+/*@RestController
+@RequestMapping("/CollectionRelation")*/
 public class CollectionRelationController {
 
     @Autowired

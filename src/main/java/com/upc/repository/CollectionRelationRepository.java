@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @Description:
  **/
 
-@Repository
+/*@Repository*/
 public interface CollectionRelationRepository extends Neo4jRepository<CollectionRelation,Long>{
 
 }
