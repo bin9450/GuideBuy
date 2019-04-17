@@ -18,7 +18,8 @@ import java.util.List;
 public interface BrowserRelationRepository extends  Neo4jRepository<BrowserRelation,Long> {
 
     @Query("match p=(n:UserNode)-[b:BROWSE_GOOD]->(m:Phone)" +
-                "where n.user_id = {userId} return p")
+                "where n.user_id = {userId} " +
+            "return p order by b.LastTime desc")
     Iterable<BrowserRelation> findByUserNodeId(@Param("userId") int userId);
 //
     @Query("match p=(n:UserNode)-[b:BROWSE_GOOD]->(m:Phone) " +
