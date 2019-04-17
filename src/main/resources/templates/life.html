@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>歪秀购物</title>
+	<link rel="stylesheet" type="text/css" href="css/ui.css">
+	<link href="favicon.ico" type="image/x-icon" rel="icon">
+	<link href="iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+</head>
+<body>
+
+
+<div class="aui-container">
+	<div class="aui-page">
+		<!-- 头部 begin-->
+		<div class="header">
+			<div class="header-background"></div>
+			<div class="toolbar statusbar-padding">
+				<button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
+				<!--<a class="bar-button" data-href="home.html?dwz_callback=home_render" target="navTab" rel="home"><i class="icon icon-back"></i></a>-->
+				<div class="header-title">
+					<div class="title">爱生活</div>
+				</div>
+			</div>
+		</div>
+		<div style="height:44px"></div>
+		<!-- 头部 End-->
+
+		<!-- 内容 -->
+		<div class="aui-content-text">
+			<div class="aui-content-title">
+				<h2>绯闻女孩,火爆全球 时尚话题女王四人组,绯闻女孩,火爆全球 时尚话题女王四人组绯闻女孩,火爆全球 时尚话题女王四人组</h2>
+			</div>
+			<div class="my-car-thumbnail my-car-thumbnail-l"><img src="images/img/x-1.jpg"></div>
+			<div class="aui-content-p">
+				<p>《绯闻女孩》两年内火爆全球，话题女王也因为泰勒·摩森和杰西卡·斯佐尔的时尚蜕变已经由最开始两人扩充到四人的时尚造型秀，各国奢侈品牌单品混搭上身，抢穿天桥新装。美国上东区的富家女集体出击，争当最耀眼的Gossip Queen！</p>
+			</div>
+			<div class="aui-coll-s b-line">
+				<div class="aui-coll-l"><i class="aui-icon-zan"></i>点赞</div>
+				<div class="aui-coll-f"><i class="aui-icon-shi"></i>分享</div>
+			</div>
+			<div class="devider b-line"></div>
+		</div>
+
+		<div class="aui-content-text">
+			<div class="aui-content-title">
+				<h2>绯闻女孩,火爆全球 时尚话题女王四人组,绯闻女孩,火爆全球 时尚话题女王四人组绯闻女孩,火爆全球 时尚话题女王四人组</h2>
+			</div>
+			<div class="my-car-thumbnail my-car-thumbnail-l"><img src="images/img/x-3.jpg"></div>
+
+			<div class="my-car-thumbnail my-car-thumbnail-l"><img src="images/img/x-2.jpg"></div>
+			<div class="aui-content-p">
+				<p>《绯闻女孩》两年内火爆全球，话题女王也因为泰勒·摩森和杰西卡·斯佐尔的时尚蜕变已经由最开始两人扩充到四人的时尚造型秀，各国奢侈品牌单品混搭上身，抢穿天桥新装。美国上东区的富家女集体出击，争当最耀眼的Gossip Queen！</p>
+			</div>
+
+			<div class="aui-coll-s b-line">
+				<div class="aui-coll-l"><i class="aui-icon-zan"></i>点赞</div>
+				<div class="aui-coll-f"><i class="aui-icon-shi"></i>分享</div>
+			</div>
+			<div class="devider b-line"></div>
+		</div>
+
+		<div style="height:49px"></div>
+		<div class="tab-bar tab-bottom">
+			<a class="tab-button " href="index.html"><i class="tab-button-icon icon icon-home"></i><span class="tab-button-txt">首页</span></a>
+			<a class="tab-button active" href="life.html"><i class="tab-button-icon icon icon-exhibition" ></i><span class="tab-button-txt">生活</span></a>
+			<a class="tab-button cached" href="classes.html"><i class="tab-button-icon icon icon-service" ></i><span class="tab-button-txt">分类</span></a>
+			<a class="tab-button cached" href="car.html"><i class="tab-button-icon icon icon-car"></i><span class="tab-button-txt">购物车</span></a>
+			<a class="tab-button cached" href="me.html"><i class="tab-button-icon icon icon-my"></i><span class="tab-button-txt">我的</span></a>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="js/pd/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/pd/aui-touchSlide.js"></script>
+<script>
+	/*banner首页轮播*/
+	TouchSlide({
+		slideCell : "#focus",
+		titCell : ".hd ul", // 开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+		mainCell : ".bd ul",
+		effect : "leftLoop",
+		autoPlay : true, // 自动播放
+		autoPage : true, // 自动分页
+		delayTime: 200, // 毫秒；切换效果持续时间（执行一次效果用多少毫秒）
+		interTime: 5000, // 毫秒；自动运行间隔（隔多少毫秒后执行下一个效果）
+		switchLoad : "_src" // 切换加载，真实图片路径为"_src"
+	});
+</script>
+<script src="js/ba/aui-scroll.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ba/aui-index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ba/aui-swipe.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>歪秀购物</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/ui.css">
+	<link href="./favicon.ico" type="image/x-icon" rel="icon">
+	<link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+</head>
+<body>
+
+<div class="header">
+	<div class="header-background"></div>
+	<div class="toolbar statusbar-padding">
+		<button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
+		<!--<a class="bar-button" data-href="home.html?dwz_callback=home_render" target="navTab" rel="home"><i class="icon icon-back"></i></a>-->
+		<div class="header-title">
+			<div class="title">我的足迹</div>
+		</div>
+	</div>
+</div>
+<div style="height:44px"></div>
+
+<div>
+	<div class="main_con" style="margin-bottom:0;">
+		<div class="main_con_goods">
+			<ul id="goodlist">
+<!--				<li >
+					<section class="aui-crl" style="padding-left:15px">
+						<img src="">
+					</section>
+					<div style="width: 225px; padding-left: 10px;" class="">
+						<h2>2017春装新款时尚女装宽松贴布开衫针织衫NG5836</h2>
+						<p class="aui-o">颜色分类:黑色,尺码:M</p>
+						<p class="money"><em class="aui-redd">90￥</em>
+							<a href="" style="color:#ff5000;border:1px solid #ff5000; padding:2px 5px;font-size:12px; border-radius:3px">加入购物车</a>
+						</p>
+					</div>
+				</li>
+				-->
+
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<script src="/static/js/page/js/jquery.min.js"></script>
+<script src="/static/js/page/js/swiper.min.js"></script>
+<script src="/static/js/page/js/jquery.lazyload.js"></script>
+
+<!--获取信息-->
+<script>
+    var ht = '';
+    function viewUser() {
+        var url = '/usernode/getUser';
+        var userId = $("#userId").val();
+        var nickName = $("#nickName").val();
+        var userName = $("#userName").val();
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            data: {
+                userId:userId,
+                nickName:nickName,
+                userName:userName
+            },
+            success: function (data) {
+                viewGoodInfo(data.userId)
+                //console.log(data);
+            }
+        })
+    };
+</script>
+
+<script>
+    function viewGoodInfo(nowUserId) {
+        var url = '/Browser/selInfo?userId='+nowUserId;
+        var goodId = $("#goodId").val();
+        var browserTime = $("#browserTime").val();
+
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            data: {
+                goodId: goodId,
+                browserTime:browserTime
+            },
+            success: function (data) {
+                // console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    viewGoodDetail(data[i].goodId,data[i].browserTime);
+                }
+            }
+        })
+
+    };
+
+    function viewGoodDetail(nowGoodId,browserTime) {
+        var url = '/PhoneNode/findByGoodId?goodId='+nowGoodId;
+        var goodId = $("#goodId").val();
+        var goodName = $("#goodName").val();
+        var price = $("#price").val();
+        var goodPic = $("#goodPic").val();
+
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            data: {
+                goodId: goodId,
+                goodName: goodName,//这里 : 前面一定要和json里面的字段一致.
+                price: price,
+                goodPic: goodPic
+            },
+            success: function (data) {
+                ht+='<li ><section class="aui-crl" style="padding-left:15px">';
+				ht+='<img src="'+data.goodPic;
+				ht+='">';
+				ht+='</section>';
+                ht+='<div style="width: 225px; padding-left: 10px;" class="">';
+                ht+='<h2>'+data.goodName+'</h2>';
+                ht+='<p class="aui-o">时间：'+browserTime.substr(0,19)+'</p>';
+                ht+='<p class="money"><em class="aui-redd">'+data.price+'￥</em>';
+                ht+='<a href="" style="color:#ff5000;border:1px solid #ff5000; padding:2px 5px;font-size:12px; border-radius:3px">加入购物车</a>';
+				ht+='</p></div></li>';
+                $("#goodlist").html(ht);
+            }
+        })
+
+    };
+
+</script>
+
+<script type="text/javascript">
+    window.onload = function(){
+        viewUser();
+    }
+</script>
+
+</body>
+</html>

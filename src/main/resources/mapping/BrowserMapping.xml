@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upc.Mapper.BrowserMapper">
+    <resultMap id="BaseResultMap" type="com.upc.Entity.Browser">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="userid" jdbcType="VARCHAR" property="userId" />
+        <result column="goodid" jdbcType="VARCHAR" property="goodId" />
+        <result column="browsertime" jdbcType="TIMESTAMP" property="browserTime" />
+    </resultMap>
+
+    <select id="selInfo" resultType="Browser">
+        select * from browser where userid = #{userId} ORDER BY id DESC
+    </select>
+    <!--SELECT DISTINCT *,COUNT(*) FROM browser WHERE  userid = 7 GROUP BY goodid-->
+
+    <insert id="insert" parameterType="Browser">
+        INSERT INTO browser (userid,goodid) VALUES (#{userId},#{goodId})
+    </insert>
+
+</mapper>

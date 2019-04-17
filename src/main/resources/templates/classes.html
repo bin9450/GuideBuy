@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="referrer" content="no-referrer"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>歪秀购物</title>
+	<link rel="stylesheet" type="text/css"  th:href="@{~/static/css/ui.css}">
+	<link href="./favicon.ico" type="image/x-icon" rel="icon">
+	<link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+</head>
+<style>
+	.line-limit-length {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap; //文本不换行，这样超出一行的部分被截取，显示...
+	}
+</style>
+<body style="font-size:12px" >
+
+<div class="header">
+	<div class="header-background"></div>
+	<div class="toolbar statusbar-padding">
+		<button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
+		<div class="header-title">
+			<div class="title">分类</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="loading"><img src="/static/images/loading_sprite.png" /></div>
+<div class="con" >
+	<aside>
+		<div class="menu-left scrollbar-none r-line" id="sidebar">
+		<!--	<ul>
+				<li class="active">女士配件</li>
+			</ul>-->
+		</div>
+	</aside>
+	<div id = "goodList">
+<!--	<section class="menu-right padding-all j-content">
+		<h5>女士配件</h5>
+		<ul>
+			<li class="w-3"><a href="page.html"></a> <img src="images/top1.jpg" /><span>围巾围脖</span></li>
+		</ul>
+	</section>-->
+	</div>
+</div>
+
+<!--
+<div class="tab-bar tab-bottom">
+	<a class="tab-button cached" href="/index"><i class="tab-button-icon icon icon-home"></i><span class="tab-button-txt">首页</span></a>
+	<a class="tab-button cached" href="/recommend"><i class="tab-button-icon icon icon-exhibition" ></i><span class="tab-button-txt">生活</span></a>
+	<a class="tab-button active" href="/classes"><i class="tab-button-icon icon icon-service" ></i><span class="tab-button-txt">分类</span></a>
+	<a class="tab-button cached" href="car.html"><i class="tab-button-icon icon icon-car"></i><span class="tab-button-txt">购物车</span></a>
+	<a class="tab-button cached" href="/me"><i class="tab-button-icon icon icon-my"></i><span class="tab-button-txt">我的</span></a>
+</div>
+-->
+
+<script type="text/javascript" src="/static/js/class/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/class/swiper-3.2.5.min.js"></script>
+<script type="text/javascript" src="/static/js/class/ectouch.js"></script>
+<script type="text/javascript" src="/static/js/class/jquery.json.js"></script>
+<script type="text/javascript" src="/static/js/class/common.js"></script>
+
+<script type="text/javascript">
+	var lastLiId = "li_0";
+	var lastSelectionId = "selection_0";
+	function liClick() {
+		var id = $(this).attr("id");
+		var index = id.substr(3,id.length);
+		var selectIonId = "selection_"+index;
+		$("#"+lastLiId).removeClass("active");
+		$("#"+lastSelectionId).css("display","none");
+		lastLiId = id;
+		lastSelectionId  = selectIonId;
+		$(this).addClass("active");
+		$("#"+selectIonId).css("display","");
+    }
+    function viewShopName() {
+
+        var url = "/Company/all"
+
+        var goodId = $("#goodId").val();
+        var shopName = $("#shopName").val();
+        var goodName = $("#goodName").val();
+        var price = $("#price").val();
+        var comment = $("#comment").val();
+        var goodPic = $("#goodPic").val();
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            data: {
+                shopName:shopName,
+                phoneNodes:{
+                    goodId: goodId,
+                    goodName: goodName,//这里 : 前面一定要和json里面的字段一致.
+                    price: price,
+                    comment: comment,
+                    goodPic: goodPic
+                }
+            },
+            success: function (data) {
+                //console.log(data);
+                var ht = '';
+                var ht1 = '';
+                //console.log(data.length)
+                for (var i = 0; i < data.length; i++) {
+                    ht = ht + '<ul>';
+                    if(i==0){
+                        ht = ht +'<li class="active" id="li_'+i+'">';
+                    }
+                    else {
+                        ht = ht +'<li id="li_'+i+'">';
+                    }
+                    ht = ht + data[i].shopName;
+                    ht = ht +'</li>';
+                    ht = ht + '</ul>';
+
+                    if(i==0) {
+                        ht1 = ht1 + '<section class="menu-right padding-all j-content" id="selection_'+i+'">';
+                    }
+                    else{
+                        ht1 = ht1 + '<section class="menu-right padding-all j-content" id="selection_'+i+'" style="display:none">';
+                    }
+                    ht1 = ht1 + '<ul> <h5>';
+                    ht1 = ht1 + data[i].shopName;
+                    ht1 = ht1 + '</h5>';
+                    for (var j = 0; j < data[i].phoneNodes.length; j++) {
+                        ht1 = ht1  +  '<li class="w-3"><a href="/page?goodId=';
+						ht1 = ht1 + data[i].phoneNodes[j].goodId;
+                        ht1 = ht1 +'">';
+						ht1 = ht1 + '</a> <img src="';
+                        ht1 = ht1 + data[i].phoneNodes[j].goodPic;
+                        ht1 = ht1 +	'" />' ;
+                        ht1 = ht1 +	'<span class="line-limit-length">';
+                        ht1 = ht1 + data[i].phoneNodes[j].goodName;
+                        ht1 = ht1 + '</span></li>';
+                    }
+                    ht1 = ht1 +'</ul> </section>';
+                    $("#goodList").html(ht1);
+                }
+                $("#sidebar").html(ht);
+
+                for(var i=0;i<data.length;i++) {
+                    $('#li_'+i).on("click",liClick);
+                }
+
+            }
+        })
+
+    }
+    window.onload = viewShopName;
+</script>
+
+<script type="text/javascript">
+	//设置cookie
+	function setCookie(cname, cvalue, exdays) {
+		var d = new Date();
+		d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		var expires = "expires="+d.toUTCString();
+		document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+	function clearHistroy(){
+		setCookie('ECS[keywords]', '', -1);
+		document.getElementById("search_histroy").style.visibility = "hidden";
+	}
+</script>
+
+<!--<script type="text/javascript">
+	$(function($){
+		$('#sidebar ul li').click(function(){
+			$(this).addClass('active').siblings('li').removeClass('active');
+			var index = $(this).index();
+			$('.j-content').eq(index).show().siblings('.j-content').hide();
+		})
+	})
+</script>-->
+
+
+
+
+</body>
+</html>
