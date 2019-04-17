@@ -52,6 +52,7 @@
             url: url,//url地址
             dataType: 'json',
             type: 'get',
+            async: false,
             data: {
                 userId:userId,
                 nickName:nickName,
@@ -75,15 +76,18 @@
             url: url,//url地址
             dataType: 'json',
             type: 'get',
+            async: false,
             data: {
                 goodId: goodId,
                 browserTime:browserTime
             },
             success: function (data) {
                 // console.log(data);
+				//ht = '';
                 for (var i = 0; i < data.length; i++) {
                     viewGoodDetail(data[i].goodId,data[i].browserTime);
                 }
+                $("#goodlist").html(ht);
             }
         })
 
@@ -100,6 +104,7 @@
             url: url,//url地址
             dataType: 'json',
             type: 'get',
+            async: false,
             data: {
                 goodId: goodId,
                 goodName: goodName,//这里 : 前面一定要和json里面的字段一致.
@@ -117,10 +122,8 @@
                 ht+='<p class="money"><em class="aui-redd">'+data.price+'￥</em>';
                 ht+='<a href="" style="color:#ff5000;border:1px solid #ff5000; padding:2px 5px;font-size:12px; border-radius:3px">加入购物车</a>';
 				ht+='</p></div></li>';
-                $("#goodlist").html(ht);
             }
         })
-
     };
 </script>
 
@@ -154,7 +157,6 @@ function viewGoodSimple(nowGoodId,browserTime) {
             ht+='<p class="money"><em class="aui-redd">'+data.price+'￥</em>';
             ht+='<a href="" style="color:#ff5000;border:1px solid #ff5000; padding:2px 5px;font-size:12px; border-radius:3px">加入购物车</a>';
             ht+='</p></div></li>';
-            $("#goodlist").html(ht);
         }
     })
 
