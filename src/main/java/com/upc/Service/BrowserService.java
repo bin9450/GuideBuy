@@ -6,6 +6,8 @@ import com.upc.Mapper.BrowserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,11 +27,16 @@ public class BrowserService {
     public List<Browser> selInfo(String userId ){
         return browserMapper.selInfo(userId);
     }
+
     public void insert(Browser browser){
         int userId = Integer.parseInt(browser.getUserId());
         int goodId = Integer.parseInt(browser.getGoodId());
-        String lastTime = String.valueOf(browser.getBrowserTime());
+        Date date = new Date();
+        browser.setBrowserTime(date);
         browserMapper.insert(browser);
+
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String lastTime = sdf.format(date);
         BrowserRelation result = browserRelationService.findByUserAndPhone(userId,goodId);
         if (result == null){
             browserRelationService.createBrowserRelation(userId,goodId,lastTime);

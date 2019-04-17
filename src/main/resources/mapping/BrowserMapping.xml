@@ -14,7 +14,7 @@
     <!--SELECT DISTINCT *,COUNT(*) FROM browser WHERE  userid = 7 GROUP BY goodid-->
 
     <insert id="insert" parameterType="Browser">
-        INSERT INTO browser (userid,goodid) VALUES (#{userId},#{goodId})
+        INSERT INTO browser (userid,goodid,browsertime) VALUES (#{userId},#{goodId},#{browserTime})
     </insert>
 
 </mapper>
