@@ -4,8 +4,6 @@ import com.upc.Domain.Relations.BrowserRelation;
 import com.upc.Repository.BrowserRelationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +50,16 @@ public class BrowserRelationService {
         Iterable<BrowserRelation> result = browserRelationRepository.findByPhoneNodeId(goodId);
         return result;
     }
-//    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void createBrowserRelation(int userId,int goodId,String lastTime){
+        browserRelationRepository.createBrowserRelation(userId, goodId, lastTime);
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void updateInfo(int userId,int goodId,String lastTime){
+        browserRelationRepository.updateInfo(userId, goodId, lastTime);
+    }
 
 
 }
