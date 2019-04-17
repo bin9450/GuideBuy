@@ -110,6 +110,19 @@
 		<!--模拟的标题-->
 		<!--<p class="header"><a class="btn-left" href="../index.html">main</a> 商品列表 <a class="btn-right" href="list-news.html">list-news</a></p>-->
 		<!--滑动区域-->
+		<div class="header">
+			<div class="header-background"></div>
+			<div class="toolbar statusbar-padding">
+				<button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
+				<!--<a class="bar-button" data-href="home.html?dwz_callback=home_render" target="navTab" rel="home"><i class="icon icon-back"></i></a>-->
+				<div class="header-title">
+					<div class="title">也许想要</div>
+				</div>
+			</div>
+		</div>
+
+		<div style="height:44px"></div>
+
 		<div id="mescroll" class="mescroll">
 <!--			<div class="notice">
 				因为商品的名称价格销量会变动,也可能会下架删除<br />所以本Demo的下拉刷新会重置列表数据<br />
@@ -172,18 +185,18 @@
 
                     for (var i = 0; i < data.length; i++) {
                         var pd=data[i];
-
-                        var str='<img class="pd-img" src="';
+                        var str='<a href=/page?goodId=';
+                            str+=pd.goodId;
+                            str+='>';
+							str+='<img class="pd-img" src="';
 							str+=pd.goodPic;
 							str+='"/>';
-							str+='<a href=/page?goodId=';
-							str+=pd.goodId;
-							str+='>';
+							str+='</a>';
 							str+='<p class="pd-name">'+pd.goodName+'</p>';
 							str+='<p class="pd-price">'+pd.price+' 元</p>';
 							str+='<p class="pd-sold">'+pd.shopName+'</p>';
 							str+='<p class="pd-sold">关注度'+pd.comment+'</p>';
-							str+='</a>';
+
                         var liDom=document.createElement("li");
                         liDom.innerHTML=str;
                         listDom.appendChild(liDom);

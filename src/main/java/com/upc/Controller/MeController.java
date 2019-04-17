@@ -17,4 +17,9 @@ public class MeController {
     public String showFoot(){
         return "footprint";
     }
+    @RequestMapping("/footprintdetail")
+    public String showFootDetail(){
+        return "footprintdetail";
+    }
+
 }
