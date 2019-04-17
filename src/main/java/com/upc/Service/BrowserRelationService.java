@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -51,5 +52,7 @@ public class BrowserRelationService {
         Iterable<BrowserRelation> result = browserRelationRepository.findByPhoneNodeId(goodId);
         return result;
     }
+//    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+
 
 }
