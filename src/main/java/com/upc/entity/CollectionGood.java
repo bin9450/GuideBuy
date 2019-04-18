@@ -17,14 +17,16 @@ public class CollectionGood {
     private Integer id;
     private String  userId;
     private String goodId;
-    private Date browserTime;
+    private Date collectTime;
+    private String state;
 
     @Override
     public String toString(){
         return  "id:"+id+
                 "userId:"+userId+
                 "goodId:"+goodId+
-                "browserTime"+browserTime;
+                "collectTime:"+collectTime+
+                "state"+state;
     }
 
 }
