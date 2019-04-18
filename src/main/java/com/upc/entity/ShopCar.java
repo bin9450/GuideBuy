@@ -1,6 +1,8 @@
 package com.upc.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -10,7 +12,8 @@ import java.util.Date;
  * @Description:
  **/
 
-@Data
+@Getter
+@Setter
 public class ShopCar {
 
     private Integer id;
@@ -20,12 +23,14 @@ public class ShopCar {
     private int state;
 
     @Override
-    public String toString(){
-        return  "id:"+id+
-                "userId:"+userId+
-                "goodId:"+goodId+
-                "insertTime:"+doTime+
-                "state"+state;
+    public String toString() {
+        return "ShopCar{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", goodId='" + goodId + '\'' +
+                ", doTime=" + doTime +
+                ", state=" + state +
+                '}';
     }
 
 }

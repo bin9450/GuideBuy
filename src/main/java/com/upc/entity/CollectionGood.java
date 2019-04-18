@@ -2,6 +2,8 @@ package com.upc.entity;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -11,7 +13,8 @@ import java.util.Date;
  * @Description:
  **/
 
-@Data
+@Getter
+@Setter
 public class CollectionGood {
 
     private Integer id;
@@ -21,12 +24,14 @@ public class CollectionGood {
     private int state;
 
     @Override
-    public String toString(){
-        return  "id:"+id+
-                "userId:"+userId+
-                "goodId:"+goodId+
-                "collectTime:"+collectTime+
-                "state"+state;
+    public String toString() {
+        return "CollectionGood{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", goodId='" + goodId + '\'' +
+                ", collectTime=" + collectTime +
+                ", state=" + state +
+                '}';
     }
 
 }

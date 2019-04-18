@@ -18,8 +18,13 @@ public class User {
     private String nickName;
 
     @Override
-    public String toString (){
-        return "id:"+userId+"username:"+userName;
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", nickName='" + nickName + '\'' +
+                '}';
     }
 
 

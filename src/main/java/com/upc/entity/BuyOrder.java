@@ -8,26 +8,26 @@ import java.util.Date;
 
 /**
  * @Author: Pan
- * @Date: 2019/4/15 9:57
+ * @Date: 2019/4/18 18:50
  * @Description:
  **/
 
 @Getter
 @Setter
-public class Browser {
+public class BuyOrder {
 
     private Integer id;
     private String  userId;
     private String goodId;
-    private Date browserTime;
+    private Date buyTime;
 
     @Override
     public String toString() {
-        return "Browser{" +
+        return "BuyOrder{" +
                 "id=" + id +
                 ", userId='" + userId + '\'' +
                 ", goodId='" + goodId + '\'' +
-                ", browserTime=" + browserTime +
+                ", buyTime=" + buyTime +
                 '}';
     }
 
