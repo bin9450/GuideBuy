@@ -19,7 +19,7 @@ public class UserInfoService {
 
         User user = (User) request.getSession().getAttribute("session_user");
         user.setPassWord(null);
-        System.out.println(user.getUserId());
+       // System.out.println(user.getUserId());
         return user;
     }
 

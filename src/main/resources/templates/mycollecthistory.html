@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>歪秀购物</title>
-	<link rel="stylesheet" type="text/css" href="/static/css/ui.css">
-	<link href="./favicon.ico" type="image/x-icon" rel="icon">
-	<link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>歪秀购物</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/ui.css">
+    <link href="./favicon.ico" type="image/x-icon" rel="icon">
+    <link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
 </head>
 <body>
 
 <div class="header">
-	<div class="header-background"></div>
-	<div class="toolbar statusbar-padding">
-		<button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
-		<!--<a class="bar-button" data-href="home.html?dwz_callback=home_render" target="navTab" rel="home"><i class="icon icon-back"></i></a>-->
-		<div class="header-title">
-			<div class="title">我的足迹</div>
-		</div>
-	</div>
+    <div class="header-background"></div>
+    <div class="toolbar statusbar-padding">
+        <button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
+        <!--<a class="bar-button" data-href="home.html?dwz_callback=home_render" target="navTab" rel="home"><i class="icon icon-back"></i></a>-->
+        <div class="header-title">
+            <div class="title">我的收藏</div>
+        </div>
+    </div>
 </div>
 <div style="height:44px"></div>
 
 
 
 <div>
-	<div class="main_con" style="margin-bottom:0;">
-		<div class="main_con_goods">
-			<ul id="goodlist">
+    <div class="main_con" style="margin-bottom:0;">
+        <div class="main_con_goods">
+            <ul id="goodlist">
 
-			</ul>
-		</div>
-	</div>
+            </ul>
+        </div>
+    </div>
 </div>
 
 
@@ -68,9 +68,10 @@
 
 <script>
     function viewGoodInfo(nowUserId) {
-        var url = '/Browser/selInfo?userId='+nowUserId;
+        var url = '/CollectionGood/selInfo?userId='+nowUserId;
         var goodId = $("#goodId").val();
-        var browserTime = $("#browserTime").val();
+        var collectTime = $("#collectTime").val();
+        var state = $("#state").val();
 
         $.ajax({
             url: url,//url地址
@@ -79,13 +80,14 @@
             async: false,
             data: {
                 goodId: goodId,
-                browserTime:browserTime
+                collectTime:collectTime,
+                state:state
             },
             success: function (data) {
                 // console.log(data);
-				//ht = '';
+                //ht = '';
                 for (var i = 0; i < data.length; i++) {
-                    viewGoodDetail(data[i].goodId,data[i].browserTime);
+                    viewGoodDetail(data[i].goodId,data[i].collectTime,data[i].state);
                 }
                 $("#goodlist").html(ht);
             }
@@ -93,7 +95,7 @@
 
     };
 
-    function viewGoodDetail(nowGoodId,browserTime) {
+    function viewGoodDetail(nowGoodId,browserTime,state) {
         var url = '/PhoneNode/findByGoodId?goodId='+nowGoodId;
         var goodId = $("#goodId").val();
         var goodName = $("#goodName").val();
@@ -113,15 +115,20 @@
             },
             success: function (data) {
                 ht+='<li ><section class="aui-crl" style="padding-left:15px">';
-				ht+='<img src="'+data.goodPic;
-				ht+='">';
-				ht+='</section>';
+                ht+='<img src="'+data.goodPic;
+                ht+='">';
+                ht+='</section>';
                 ht+='<div style="width: 225px; padding-left: 10px;" class="">';
                 ht+='<h2>'+data.goodName+'</h2>';
                 ht+='<p class="aui-o">时间：'+browserTime.substr(0,19)+'</p>';
+                if (state == "0"){
+                    ht+='<p class="aui-o">状态：已取消</p>';
+                }else{
+                    ht+='<p class="aui-o">状态：已添加</p>';
+                }
                 ht+='<p class="money"><em class="aui-redd">'+data.price+'￥</em>';
                 ht+='<a href="" style="color:#ff5000;border:1px solid #ff5000; padding:2px 5px;font-size:12px; border-radius:3px">加入购物车</a>';
-				ht+='</p></div></li>';
+                ht+='</p></div></li>';
             }
         })
     };

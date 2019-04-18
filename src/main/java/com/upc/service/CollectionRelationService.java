@@ -60,4 +60,9 @@ public class CollectionRelationService {
         collectionRelationRepository.updateInfo(userId, goodId, lastTime);
     }
 
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void deleteRelation(int userId,int goodId){
+        collectionRelationRepository.deleteRelation(userId, goodId);
+    }
+
 }

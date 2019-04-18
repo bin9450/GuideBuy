@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/meInfo")
 public class MeController {
 
+
     @RequestMapping("/footprint")
     public String showFoot(){
         return "footprint";
@@ -20,6 +21,15 @@ public class MeController {
     @RequestMapping("/footprintdetail")
     public String showFootDetail(){
         return "footprintdetail";
+    }
+
+    @RequestMapping("/mycollecthistory")
+    public String showCollecthistory(){
+        return "mycollecthistory";
+    }
+    @RequestMapping("/mycollection")
+    public String showMycollection(){
+        return "mycollection";
     }
 
 }

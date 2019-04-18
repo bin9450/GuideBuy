@@ -38,4 +38,12 @@ public class CollectionController {
 
     }
 
+    @RequestMapping("/eliminate")
+    public void eliminate(CollectionGood collectionGood){
+        if (collectionGood.getGoodId() != null &&
+                collectionGood.getUserId() != null){
+            collectionService.eliminate(collectionGood);
+        }
+    }
+
 }

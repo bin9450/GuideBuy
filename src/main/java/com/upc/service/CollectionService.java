@@ -29,6 +29,16 @@ public class CollectionService {
         return result;
     }
 
+    public void eliminate(CollectionGood collectionGood){
+        int userId = Integer.parseInt(collectionGood.getUserId());
+        int goodId = Integer.parseInt(collectionGood.getGoodId());
+        Date date = new Date();
+        collectionGood.setCollectTime(date);
+
+        collectionMapper.eliminate(collectionGood);
+        collectionRelationService.deleteRelation(userId,goodId);
+    }
+
     public void insert(CollectionGood collectionGood){
         //collectionMapper.insert(collectionGood);
         int userId = Integer.parseInt(collectionGood.getUserId());

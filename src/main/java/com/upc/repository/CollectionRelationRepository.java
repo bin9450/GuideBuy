@@ -19,7 +19,7 @@ public interface CollectionRelationRepository extends Neo4jRepository<Collection
 
     @Query("match p=(n:UserNode)-[c:COLLECT_GOOD]->(m:Phone)" +
             "where n.user_id = {userId} " +
-            "return p order by b.CollectTime desc")
+            "return p order by c.CollectTime desc")
     List<CollectionRelation> findByUserNodeId(@Param("userId") int userId);
 
     @Query("match p=(n:UserNode)-[c:COLLECT_GOOD]->(m:Phone) " +
@@ -39,9 +39,14 @@ public interface CollectionRelationRepository extends Neo4jRepository<Collection
 
     @Query("MATCH (n:UserNode)-[c:COLLECT_GOOD]->(m:Phone)" +
             " where n.user_id = {userId} and m.good_id = {goodId} " +
-            "set b.CollectTime = {collectTime} ")
+            "set c.CollectTime = {collectTime} ")
     void updateInfo(@Param("userId") int userId,@Param("goodId") int goodId,
                     @Param("collectTime") String collectTime);
+
+    @Query("MATCH (n:UserNode)-[c:COLLECT_GOOD]->(m:Phone)" +
+            " where n.user_id = {userId} and m.good_id = {goodId} " +
+            "delete c")
+    void deleteRelation(@Param("userId") int userId,@Param("goodId") int goodId);
 
 
 }

@@ -15,5 +15,5 @@ import java.util.List;
 public interface CollectionMapper {
     List<CollectionGood> selInfo(String userId );
     void insert(CollectionGood collectionGood);
-    void eliminate(String userId);
+    void eliminate(CollectionGood collectionGood);
 }
