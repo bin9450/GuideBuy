@@ -1,23 +1,22 @@
 package com.upc.entity;
 
-
 import lombok.Data;
 
 import java.util.Date;
 
 /**
  * @Author: Pan
- * @Date: 2019/4/17 18:42
+ * @Date: 2019/4/18 16:17
  * @Description:
  **/
 
 @Data
-public class CollectionGood {
+public class ShopCar {
 
     private Integer id;
     private String  userId;
     private String goodId;
-    private Date collectTime;
+    private Date doTime;
     private int state;
 
     @Override
@@ -25,7 +24,7 @@ public class CollectionGood {
         return  "id:"+id+
                 "userId:"+userId+
                 "goodId:"+goodId+
-                "collectTime:"+collectTime+
+                "insertTime:"+doTime+
                 "state"+state;
     }
 

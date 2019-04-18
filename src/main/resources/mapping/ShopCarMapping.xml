@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upc.mapper.ShopCarMapper">
+    <resultMap id="BaseResultMap" type="com.upc.entity.ShopCar">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="userid" jdbcType="VARCHAR" property="userId" />
+        <result column="goodid" jdbcType="VARCHAR" property="goodId" />
+        <result column="dotime" jdbcType="TIMESTAMP" property="doTime" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+    </resultMap>
+
+    <select id="selInfo" resultType="ShopCar">
+        select * from shop_car where userid = #{userId} ORDER BY id DESC
+    </select>
+
+    <insert id="insert" parameterType="ShopCar">
+        INSERT INTO shop_car (userid,goodid,collecttime,state) VALUES (#{userId},#{goodId},#{collectTime},0)
+    </insert>
+
+    <insert id="eliminate" parameterType="ShopCar">
+        INSERT INTO shop_car (userid,goodid,collecttime,state) VALUES (#{userId},#{goodId},#{collectTime},-1)
+    </insert>
+
+    <insert id="buyIt" parameterType="ShopCar">
+        INSERT INTO shop_car (userid,goodid,collecttime,state) VALUES (#{userId},#{goodId},#{collectTime},1)
+    </insert>
+
+</mapper>
