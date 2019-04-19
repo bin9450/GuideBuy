@@ -29,9 +29,9 @@
 				<span class="circle"></span>全选 <a href="javascript:del_goods()"><img src="/static/images/icon-png/delete-icon.png" /></a>
 			</div>
 			<div class="main_con_goods">
-				<ul>
+				<ul id="goodlist">
 
-					<li>
+<!--					<li>
 						<section class="aui-crl">
 							<span class="circle"></span>
 							<img src="/static/images/img/b4.jpg">
@@ -45,7 +45,7 @@
 								<input class="del" type="button" value="" />
 							</p>
 						</div>
-					</li>
+					</li>-->
 
 				</ul>
 			</div>
@@ -85,11 +85,94 @@
 		<div class="no_goods">
 			<!--<img src="/static/images/no_goods_ico.png" />-->
 			<p>购物车里没有东西哦~<br />快去商城逛逛吧！</p>
-			<a href="">即刻添置</a>
+			<a href="/index">即刻添置</a>
 		</div>
 		<!--无商品页面 end-->
 	</div>
 </div>
+
+<script>
+    function viewUser() {
+        var url = '/usernode/getUser';
+        var userId = $("#userId").val();
+        var nickName = $("#nickName").val();
+        var userName = $("#userName").val();
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            async:false,
+            data: {
+                userId:userId,
+                nickName:nickName,
+                userName:userName
+            },
+            success: function (data) {
+               var nowUserId = data.userId;
+                viewGood(nowUserId);
+            }
+        })
+
+    };
+
+</script>
+
+<script>
+
+    function viewGood(nowUserId) {
+
+        var url = "/CarRelation/findByUserNodeId?userId="+nowUserId;
+        var carTime = $("#carTime").val();
+        var goodId = $("#goodId").val();
+        var goodName = $("#goodName").val();
+        var price = $("#price").val();
+        var goodPic = $("#goodPic").val();
+
+
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            async:false,
+            data: {
+                carTime:carTime,
+                phoneNode:{
+                    goodId:goodId,
+                    goodName:goodName,
+                    price:price,
+                    goodPic:goodPic
+				}
+            },
+            success: function (data) {
+				var ht = '';
+				for (var i=0;i<data.length;i++){
+				    ht+='<li><section class="aui-crl"><span class="circle"></span>';
+				    ht+='<img src="'+data[i].phoneNode.goodPic+'">';
+				    ht+='</section><div style="width:auto; padding-left:10px">';
+                    ht+='<h2>'+data[i].phoneNode.goodName+'<h2>';
+                    ht+='<p class="aui-o">'+data[i].carTime+'<p class="aui-o">';
+                    ht+='<p class="money"><em class="aui-redd">'+data[i].phoneNode.price+'￥</em>';
+                    ht+='<input class="add" type="button" value="" />\n' +
+                        '<input class="num" type="number" value="1"  />\n' +
+                        '<input class="del" type="button" value="" />';
+                    ht+='</p></div></li>';
+				}
+
+                $("#goodlist").html(ht);
+            }
+
+        })
+
+    };
+
+</script>
+
+<script>
+    window.onload = function(){
+        viewUser();
+
+    }
+</script>
 
 
 <script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>

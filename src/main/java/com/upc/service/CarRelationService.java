@@ -53,7 +53,7 @@ public class CarRelationService {
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public void createBrowserRelation(int userId,int goodId,String lastTime){
+    public void createCarRelation(int userId,int goodId,String lastTime){
         carRelationRepository.createCarRelation(userId, goodId, lastTime);
     }
 
