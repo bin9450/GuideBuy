@@ -115,8 +115,10 @@
             },
             success: function (data) {
                 ht+='<li ><section class="aui-crl" style="padding-left:15px">';
+                ht+='<a href="/page?goodId=' +data.goodId + '">';
                 ht+='<img src="'+data.goodPic;
                 ht+='">';
+                ht+='</a>';
                 ht+='</section>';
                 ht+='<div style="width: 225px; padding-left: 10px;" class="">';
                 ht+='<h2>'+data.goodName+'</h2>';

@@ -36,5 +36,13 @@ public class CollectionRelationController {
         return result;
     }
 
+    @RequestMapping("/findByUserAndPhone")
+    public CollectionRelation findByUserAndPhone(@RequestParam int userId,@RequestParam int goodId){
+        CollectionRelation result = collectionRelationService.findByUserAndPhone(userId,goodId);
+       if (result == null){
+           result = new CollectionRelation();
+       }
+       return result;
+    }
 
 }

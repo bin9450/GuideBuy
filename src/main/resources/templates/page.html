@@ -61,7 +61,7 @@
 	<div class="price ">
 		<div class="current-price">
 			<span class="current-price" >
-				<div  id="goodp"></div>
+				<div id="goodp"></div>
 			</span>
 
 		</div>
@@ -96,13 +96,14 @@
 	<div class="aui-car-ear">
 		<div class="aui-car-ear-cell">
 			<div class="aui-li">
-				<a href="#" class="aui-icon-gz"></a>
+				<div id="uncollection"  class="aui-icon-gz" ></div>
+				<div id="collected"  class="aui-icon-gw" style="display:none"></div>
 				<a href="#"></a>
-				<a href="#" class="aui-icon-gw"></a>
+			<!--	<a href="#" class="aui-icon-gw"></a>-->
 			</div>
 		</div>
 		<div class=""><a href="#" class="aui-car-all">加入购物车</a></div>
-		<div class=""><a href="/car" class="aui-car-lli">立即购买</a></div>
+		<div class=""><a href="#" class="aui-car-lli">立即购买</a></div>
 	</div>
 
 </footer>
@@ -133,6 +134,8 @@
             },
             success: function (data) {
                 nowUserId = data.userId;
+                $("#collected").on("click",eliminateCollection);
+                $("#uncollection").on("click",insertCollection);
 				//console.log(data);
 
             }
@@ -199,7 +202,7 @@
 
 
 <script>
-	//记录浏览记录
+    //记录浏览记录
     function insertBrowser() {
         var url = '/Browser/insert';
         $.ajax({
@@ -217,12 +220,96 @@
 
 </script>
 
+<script>
+    function isCollection() {
+        var url = '/CollectionRelation/findByUserAndPhone?userId='+nowUserId+'&goodId='+nowGoodId;
+        var id = $("#id").val();
+        var collectTime = $("#collectTime").val();
+        var goodId = $("#goodId").val();
+        var goodName = $("#goodName").val();
+        var price = $("#price").val();
+        var goodPic = $("#goodPic").val();
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            async:false,
+            data: {
+                id:id,
+                collectTime:collectTime,
+                phoneNode:{
+                    goodId:goodId,
+                    goodName:goodName,
+                    price:price,
+                    goodPic:goodPic
+                }
+            },
+            success: function (data){
+                if (data.id == null){
+                    $("#collected").css("display","none");
+                    $("#uncollection").css("display","");
+				}else {
+                    $("#collected").css("display","");
+                    $("#uncollection").css("display","none");
+				}
+
+            },
+            error:function (data) {
+            }
+
+        })
+
+    };
+
+    function insertCollection() {
+        var url = '/CollectionGood/insert';
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'post',
+            async:false,
+            data: {
+                userId:nowUserId,
+                goodId:nowGoodId
+            },
+            success: function (data){
+
+            },
+			error:function () {
+				//alert("error");
+            }
+        })
+        $("#collected").css("display","");
+        $("#uncollection").css("display","none");
+    };
+
+    function eliminateCollection() {
+        var url = '/CollectionGood/eliminate';
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'post',
+            async:false,
+            data: {
+                userId:nowUserId,
+                goodId:nowGoodId
+            },
+            success: function (data){
+
+            }
+        })
+        $("#collected").css("display","none");
+        $("#uncollection").css("display","");
+    };
+
+</script>
+
 <script type="text/javascript">
     window.onload = function(){
         viewGood();
         viewUser();
         insertBrowser();
-
+        isCollection();
     }
 </script>
 
