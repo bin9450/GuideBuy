@@ -96,13 +96,14 @@
 	<div class="aui-car-ear">
 		<div class="aui-car-ear-cell">
 			<div class="aui-li">
+				<!--收藏-->
 				<div id="uncollection"  class="aui-icon-gz" ></div>
-				<div id="collected"  class="aui-icon-gw" style="display:none"></div>
+				<div id="collected"  class="aui-icon-gzed" style="display:none"></div>
 				<a href="#"></a>
 			<!--	<a href="#" class="aui-icon-gw"></a>-->
 			</div>
 		</div>
-		<div class=""><a href="#" class="aui-car-all">加入购物车</a></div>
+		<div class="aui-car-all" id="car">加入购物车</div>
 		<div class=""><a href="#" class="aui-car-lli">立即购买</a></div>
 	</div>
 
@@ -136,13 +137,13 @@
                 nowUserId = data.userId;
                 $("#collected").on("click",eliminateCollection);
                 $("#uncollection").on("click",insertCollection);
+                $("#car").on("click",carInsert);
 				//console.log(data);
 
             }
         })
 
     };
-
 </script>
 
 <script>
@@ -217,7 +218,6 @@
         })
 
     };
-
 </script>
 
 <script>
@@ -303,6 +303,29 @@
     };
 
 </script>
+
+<!--添加购物车-->
+<script>
+    function carInsert() {
+        var url = '/Car/insert';
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'post',
+            async:false,
+            data: {
+                userId:nowUserId,
+                goodId:nowGoodId
+            },
+            success: function (data){
+
+            }
+        })
+		alert("添加成功");
+    };
+
+</script>
+
 
 <script type="text/javascript">
     window.onload = function(){

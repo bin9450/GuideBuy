@@ -14,15 +14,15 @@
     </select>
 
     <insert id="insert" parameterType="ShopCar">
-        INSERT INTO shop_car (userid,goodid,collecttime,state) VALUES (#{userId},#{goodId},#{collectTime},0)
+        INSERT INTO shop_car (userid,goodid,dotime,state) VALUES (#{userId},#{goodId},#{doTime},0)
     </insert>
 
     <insert id="eliminate" parameterType="ShopCar">
-        INSERT INTO shop_car (userid,goodid,collecttime,state) VALUES (#{userId},#{goodId},#{collectTime},-1)
+        INSERT INTO shop_car (userid,goodid,dotime,state) VALUES (#{userId},#{goodId},#{doTime},-1)
     </insert>
 
     <insert id="buyIt" parameterType="ShopCar">
-        INSERT INTO shop_car (userid,goodid,collecttime,state) VALUES (#{userId},#{goodId},#{collectTime},1)
+        INSERT INTO shop_car (userid,goodid,dotime,state) VALUES (#{userId},#{goodId},#{doTime},1)
     </insert>
 
 </mapper>

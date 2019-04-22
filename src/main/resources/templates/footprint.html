@@ -97,8 +97,10 @@
                 var ht = '';
                 for (var i = 0;i < data.length;i++){
                 ht+='<li ><section class="aui-crl" style="padding-left:15px">';
+                ht+='<a href="/page?goodId=' +data[i].phoneNode.goodId + '">';
                 ht+='<img src="'+data[i].phoneNode.goodPic;
                 ht+='">';
+                ht+='</a>';
                 ht+='</section>';
                 ht+='<div style="width: 225px; padding-left: 10px;" class="">';
                 ht+='<h2>'+data[i].phoneNode.goodName+'</h2>';

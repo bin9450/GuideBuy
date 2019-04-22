@@ -2,9 +2,9 @@ package com.upc.controller;
 
 import com.upc.entity.ShopCar;
 import com.upc.service.CarService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class CarController {
     CarService carService;
 
     @RequestMapping("/selInfo")
-    public List<ShopCar> selInfo(String userId ){
+    public List<ShopCar> selInfo(@RequestParam String userId ){
         List<ShopCar> result = carService.selInfo(userId);
         return result;
     }
@@ -34,7 +34,6 @@ public class CarController {
                 shopCar.getUserId() != null) {
             carService.insert(shopCar);
         }
-
     }
 
     @RequestMapping("/eliminate")

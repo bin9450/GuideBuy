@@ -38,6 +38,11 @@ public class IndexController {
         return "car";
     }
 
+    @RequestMapping("/carhistory")
+    public String showCarHistory(){
+        return "carhistory";
+    }
+
     @RequestMapping("page")
     public String showPage(@RequestParam int goodId){
         return "page";
