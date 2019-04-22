@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @Author: Pan
@@ -39,4 +40,10 @@ public class CompanyController {
     public Iterable<Company> findAll() {
         return companyService.findAll();
     }
+
+    @GetMapping("/findByBrand")
+    public List<Company> findByBrand(@RequestParam String name) {
+        return companyService.findByBrand(name);
+    }
+
 }

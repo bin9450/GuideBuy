@@ -48,4 +48,9 @@ public class IndexController {
         return "page";
     }
 
+    @RequestMapping("classpage")
+    public String showClassPage(@RequestParam String name){
+        return "classpage";
+    }
+
 }

@@ -71,7 +71,10 @@ public class PhoneNodeService {
 
     @Transactional(readOnly = true)
     public List<PhoneNode> findByBrandStyle(String name){
-        List<PhoneNode> result = phoneNodeRepository.findByBrandStyle(name);
+        int count = phoneNodeRepository.countByBrandStyle(name) - 6;
+        int skip= (int)(1+Math.random()*(count-1+1));
+        int limit = 6;
+        List<PhoneNode> result = phoneNodeRepository.findByBrandStyleRom(name,skip,limit);
         return result;
     }
 

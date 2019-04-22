@@ -49,8 +49,8 @@ public class PhoneNodeController {
         return  phoneNodeService.findRandom();
     }
 
-    @RequestMapping("/BrandStyle")
-    public List<PhoneNode> findByBrandStyle(@RequestParam  String name){
+    @RequestMapping("/BrandStyleRom")
+    public List<PhoneNode> findByBrandStyleRom(@RequestParam  String name){
         return phoneNodeService.findByBrandStyle(name);
     }
 

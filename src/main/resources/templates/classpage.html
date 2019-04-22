@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="referrer" content="no-referrer"/>
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>毕业设计</title>
-	<link rel="stylesheet" type="text/css"  th:href="@{~/static/css/ui.css}">
-	<link href="./favicon.ico" type="image/x-icon" rel="icon">
-	<link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>毕业设计</title>
+    <link rel="stylesheet" type="text/css"  th:href="@{~/static/css/ui.css}">
+    <link href="./favicon.ico" type="image/x-icon" rel="icon">
+    <link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
 </head>
 <style>
-	.line-limit-length {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap; //文本不换行，这样超出一行的部分被截取，显示...
-	}
+    .line-limit-length {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; //文本不换行，这样超出一行的部分被截取，显示...
+    }
 </style>
 <body style="font-size:12px" >
 
 <div class="header">
-	<div class="header-background"></div>
-	<div class="toolbar statusbar-padding">
-		<button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
-		<div class="header-title">
-			<div class="title">分类</div>
-		</div>
-	</div>
+    <div class="header-background"></div>
+    <div class="toolbar statusbar-padding">
+        <button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
+        <div class="header-title">
+            <div class="title">分类</div>
+        </div>
+    </div>
 </div>
 
 
 <div id="loading"><img src="/static/images/loading_sprite.png" /></div>
 <div class="con" >
-	<aside>
-		<div class="menu-left scrollbar-none r-line" id="sidebar">
-		<!--	<ul>
-				<li class="active">女士配件</li>
-			</ul>-->
-		</div>
-	</aside>
-	<div id = "goodList">
-<!--	<section class="menu-right padding-all j-content">
-		<h5>女士配件</h5>
-		<ul>
-			<li class="w-3"><a href="page.html"></a> <img src="images/top1.jpg" /><span>围巾围脖</span></li>
-		</ul>
-	</section>-->
-	</div>
+    <aside>
+        <div class="menu-left scrollbar-none r-line" id="sidebar">
+            <!--	<ul>
+                    <li class="active">女士配件</li>
+                </ul>-->
+        </div>
+    </aside>
+    <div id = "goodList">
+        <!--	<section class="menu-right padding-all j-content">
+                <h5>女士配件</h5>
+                <ul>
+                    <li class="w-3"><a href="page.html"></a> <img src="images/top1.jpg" /><span>围巾围脖</span></li>
+                </ul>
+            </section>-->
+    </div>
 </div>
 
 <!--
@@ -66,22 +66,30 @@
 <script type="text/javascript" src="/static/js/class/common.js"></script>
 
 <script type="text/javascript">
-	var lastLiId = "li_0";
-	var lastSelectionId = "selection_0";
-	function liClick() {
-		var id = $(this).attr("id");
-		var index = id.substr(3,id.length);
-		var selectIonId = "selection_"+index;
-		$("#"+lastLiId).removeClass("active");
-		$("#"+lastSelectionId).css("display","none");
-		lastLiId = id;
-		lastSelectionId  = selectIonId;
-		$(this).addClass("active");
-		$("#"+selectIonId).css("display","");
+    var lastLiId = "li_0";
+    var lastSelectionId = "selection_0";
+    function liClick() {
+        var id = $(this).attr("id");
+        var index = id.substr(3,id.length);
+        var selectIonId = "selection_"+index;
+        $("#"+lastLiId).removeClass("active");
+        $("#"+lastSelectionId).css("display","none");
+        lastLiId = id;
+        lastSelectionId  = selectIonId;
+        $(this).addClass("active");
+        $("#"+selectIonId).css("display","");
     }
-    function viewShopName() {
+    //获取url参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
 
-        var url = "/Company/all"
+    function viewShopName() {
+        var name = 'name';
+        var url = "/Company/findByBrand?name="+getQueryString(name);
 
         var goodId = $("#goodId").val();
         var shopName = $("#shopName").val();
@@ -131,9 +139,9 @@
                     ht1 = ht1 + '</h5>';
                     for (var j = 0; j < data[i].phoneNodes.length; j++) {
                         ht1 = ht1  +  '<li class="w-3"><a href="/page?goodId=';
-						ht1 = ht1 + data[i].phoneNodes[j].goodId;
+                        ht1 = ht1 + data[i].phoneNodes[j].goodId;
                         ht1 = ht1 +'">';
-						ht1 = ht1 + '</a> <img src="';
+                        ht1 = ht1 + '</a> <img src="';
                         ht1 = ht1 + data[i].phoneNodes[j].goodPic;
                         ht1 = ht1 +	'" />' ;
                         ht1 = ht1 +	'<span class="line-limit-length">';
@@ -157,17 +165,17 @@
 </script>
 
 <script type="text/javascript">
-	//设置cookie
-	function setCookie(cname, cvalue, exdays) {
-		var d = new Date();
-		d.setTime(d.getTime() + (exdays*24*60*60*1000));
-		var expires = "expires="+d.toUTCString();
-		document.cookie = cname + "=" + cvalue + "; " + expires;
-	}
-	function clearHistroy(){
-		setCookie('ECS[keywords]', '', -1);
-		document.getElementById("search_histroy").style.visibility = "hidden";
-	}
+    //设置cookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+    function clearHistroy(){
+        setCookie('ECS[keywords]', '', -1);
+        document.getElementById("search_histroy").style.visibility = "hidden";
+    }
 </script>
 
 <!--<script type="text/javascript">

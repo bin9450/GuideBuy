@@ -5,7 +5,7 @@
 	<meta name="referrer" content="no-referrer"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>歪秀购物</title>
+	<title>毕业设计</title>
 	<link rel="stylesheet" type="text/css" th:href="@{~/static/css/ui.css}">
 	<link th:href="@{./favicon.ico}" type="image/x-icon" rel="icon">
 	<link th:href="@{./iTunesArtwork.png}" sizes="114x114" rel="apple-touch-icon-precomposed">
@@ -141,26 +141,39 @@
 		<div class="my-car-thumbnail"><!--<img src="/static/images/img/banner-car.jpg">--></div>
 
 		<div class="aui-title-h">
-			<h2>大牌热卖</h2>
+			<h2 onclick="viewDaPai()">大牌热卖</h2><h6 onclick="viewDaPai()">(换一换)</h6>
 		</div>
 		<div class="aui-flex" id="dapai">
-<!--			<div class="aui-flex-item aui-flex-items">
-				<span>
-					<img src="/static/images/img/huawei.jpg">
-				</span>
-				<a href="#" class="aui-flex-box">华为</a>
-			</div>-->
+			<div class="aui-flex-item aui-flex-items1 aui-flex-items2" id="dapai1">
+
+			</div>
+			<div class="aui-flex-item aui-flex-items1 aui-flex-items2" id="dapai2">
+
+			</div>
+		</div>
+
+		<div style="height:44px">
+			<a href="/classpage?name=high"><h5>&gt;&gt;&gt;&gt;&gt;&gt;更多</h5></a>
 		</div>
 
 		<div class="aui-title-h">
-			<h2>时尚潮流</h2>
+			<h2 onclick="viewShiShang()">时尚潮流</h2><h6 onclick="viewShiShang()">(换一换)</h6>
 		</div>
 		<div class="aui-flex" id="shishang">
+			<div class="aui-flex-item aui-flex-items1 aui-flex-items2" id="shishang1">
 
+			</div>
+			<div class="aui-flex-item aui-flex-items1 aui-flex-items2" id="shishang2">
+
+			</div>
+		</div>
+
+		<div style="height:44px">
+			<a href="/classpage?name=medium"><h5>&gt;&gt;&gt;&gt;&gt;&gt;更多</h5></a>
 		</div>
 
 		<div class="aui-title-h">
-			<h2 onclick="viewLogisticDetail()">热卖必购</h2><h6 onclick="viewLogisticDetail()">(换一换)</h6>
+			<h2 onclick="viewLogisticDetail()">主打性价</h2><h6 onclick="viewLogisticDetail()">(换一换)</h6>
 		</div>
 		<div class="aui-flex">
 			<div class="aui-flex-item aui-flex-items1 aui-flex-items2" id="phone-result1">
@@ -176,6 +189,10 @@
 
 			</div>
 		</div>
+		<div style="height:44px">
+			<a href="/classpage?name=other"><h5>&gt;&gt;&gt;&gt;&gt;&gt;更多</h5></a>
+		</div>
+
 		<div style="height:44px"></div>
 		<div class="tab-bar tab-bottom">
 			<a class="tab-button active" href="/index"><i class="tab-button-icon icon icon-home"></i><span class="tab-button-txt">首页</span></a>
@@ -193,40 +210,69 @@
 
 <script>
     function viewDaPai() {
-        var url = "/BrandStyleKind/likeName?name=high"
-		var shopName = $("#shopName").val();
-        var shopPic = $("#shopPic").val();
+        var url = "/PhoneNode/BrandStyleRom?name=high"
+        var goodId = $("#goodId").val();
+        var goodName = $("#goodName").val();
+        var shopName = $("#shopName").val();
+        var price = $("#price").val();
+        var comment = $("#comment").val();
+        var goodPic = $("#goodPic").val();
+
         $.ajax({
             url: url,//url地址
             dataType: 'json',
             type: 'get',
             data: {
-                companies:{
-                    shopName:shopName,
-                    shopPic: shopPic
-				}
+                goodId: goodId,
+                goodName: goodName,//这里 : 前面一定要和json里面的字段一致.
+                shopName: shopName,
+                price: price,
+                comment: comment,
+                goodPic: goodPic
             },
             success: function (data) {
                 var ht = '';
-                for (var i = 0; i < data.length; i++) {
-                   // console.log(data[i].companies.length)
-                    for(var j=0; j < data[i].companies.length;j++){
-                    ht = ht + '<div class="aui-flex-item aui-flex-items">';
+                // console.log(data);
+                for (var i = 0; i < data.length; i = i + 2) {
                     ht = ht + '<span>';
                     ht = ht + '<img src="';
-                    ht = ht + data[i].companies[j].shopPic;
-                    ht = ht +	'">';
+                    ht = ht + data[i].goodPic;
+                    ht = ht + '"> ';
                     ht = ht + '</span>';
-                    ht = ht + '<a href="#" class="aui-flex-box">' ;
-                    ht = ht +  data[i].companies[j].shopName;
+                    ht = ht + '<a href="/page?goodId=';
+                    ht = ht + data[i].goodId;
+                    ht = ht +'" ';
+                    ht = ht + 'class="aui-flex-box">';
+                    ht = ht + '<h2>' + data[i].goodName + '</h2>';
+                    ht = ht + '<em>￥' + data[i].price + '   </em>';
+                    ht = ht + '<em>' + data[i].shopName + '  </em>';
+                    ht = ht + '<em>关注度 ' + data[i].comment + '   </em>';
                     ht = ht + '</a>';
-                    ht = ht + '</div>';
-                    }
+
                 }
-                $("#dapai").html(ht);
+                $("#dapai1").html(ht);
+                var ht2 = '';
+                for (var i = 1; i < data.length; i = i + 2) {
+                    ht2 = ht2 + '<span>';
+                    ht2 = ht2 + '<img src="';
+                    ht2 = ht2 + data[i].goodPic;
+                    ht2 = ht2 + '"> ';
+                    ht2 = ht2 + '</span>';
+                    ht2 = ht2 + '<a href="/page?goodId=';
+                    ht2 = ht2 + data[i].goodId;
+                    ht2 = ht2 +'" ';
+                    ht2 = ht2 + 'class="aui-flex-box">';
+                    ht2 = ht2 + '<h2>' + data[i].goodName + '</h2>';
+                    ht2 = ht2 + '<em>￥' + data[i].price + '   </em>';
+                    ht2 = ht2 + '<em>' + data[i].shopName + '  </em>';
+                    ht2 = ht2 + '<em>关注度 ' + data[i].comment + '   </em>';
+                    ht2 = ht2 + '</a>';
+                }
+                $("#dapai2").html(ht2);
 
             }
         })
+
 
     };
 
@@ -235,37 +281,65 @@
 
 <script>
     function viewShiShang() {
-        var url = "/BrandStyleKind/likeName?name=medium"
+        var url = "/PhoneNode/BrandStyleRom?name=medium"
+        var goodId = $("#goodId").val();
+        var goodName = $("#goodName").val();
         var shopName = $("#shopName").val();
-        var shopPic = $("#shopPic").val();
+        var price = $("#price").val();
+        var comment = $("#comment").val();
+        var goodPic = $("#goodPic").val();
+
         $.ajax({
             url: url,//url地址
             dataType: 'json',
             type: 'get',
             data: {
-                companies:{
-                    shopName:shopName,
-                    shopPic: shopPic
-                }
+                goodId: goodId,
+                goodName: goodName,//这里 : 前面一定要和json里面的字段一致.
+                shopName: shopName,
+                price: price,
+                comment: comment,
+                goodPic: goodPic
             },
             success: function (data) {
                 var ht = '';
-                for (var i = 0; i < data.length; i++) {
-                    //console.log(data[i].companies.length)
-                    for(var j=0; j < data[i].companies.length;j++){
-                        ht = ht + '<div class="aui-flex-item aui-flex-items">';
-                        ht = ht + '<span>';
-                        ht = ht + '<img src="';
-                        ht = ht + data[i].companies[j].shopPic;
-						ht = ht +	'">';
-                        ht = ht + '</span>';
-                        ht = ht + '<a href="#" class="aui-flex-box">' ;
-                        ht = ht +  data[i].companies[j].shopName;
-                        ht = ht + '</a>';
-                        ht = ht + '</div>';
-                    }
+                // console.log(data);
+                for (var i = 0; i < data.length; i = i + 2) {
+                    ht = ht + '<span>';
+                    ht = ht + '<img src="';
+                    ht = ht + data[i].goodPic;
+                    ht = ht + '"> ';
+                    ht = ht + '</span>';
+                    ht = ht + '<a href="/page?goodId=';
+                    ht = ht + data[i].goodId;
+                    ht = ht +'" ';
+                    ht = ht + 'class="aui-flex-box">';
+                    ht = ht + '<h2>' + data[i].goodName + '</h2>';
+                    ht = ht + '<em>￥' + data[i].price + '   </em>';
+                    ht = ht + '<em>' + data[i].shopName + '  </em>';
+                    ht = ht + '<em>关注度 ' + data[i].comment + '   </em>';
+                    ht = ht + '</a>';
+
                 }
-                $("#shishang").html(ht);
+                $("#shishang1").html(ht);
+                var ht2 = '';
+                for (var i = 1; i < data.length; i = i + 2) {
+                    ht2 = ht2 + '<span>';
+                    ht2 = ht2 + '<img src="';
+                    ht2 = ht2 + data[i].goodPic;
+                    ht2 = ht2 + '"> ';
+                    ht2 = ht2 + '</span>';
+                    ht2 = ht2 + '<a href="/page?goodId=';
+                    ht2 = ht2 + data[i].goodId;
+                    ht2 = ht2 +'" ';
+                    ht2 = ht2 + 'class="aui-flex-box">';
+                    ht2 = ht2 + '<h2>' + data[i].goodName + '</h2>';
+                    ht2 = ht2 + '<em>￥' + data[i].price + '   </em>';
+                    ht2 = ht2 + '<em>' + data[i].shopName + '  </em>';
+                    ht2 = ht2 + '<em>关注度 ' + data[i].comment + '   </em>';
+                    ht2 = ht2 + '</a>';
+                }
+                $("#shishang2").html(ht2);
 
             }
         })
@@ -276,22 +350,10 @@
 </script>
 
 <script>
-    /*banner首页轮播*/
-    TouchSlide({
-        slideCell : "#focus",
-        titCell : ".hd ul", // 开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-        mainCell : ".bd ul",
-        effect : "leftLoop",
-        autoPlay : true, // 自动播放
-        autoPage : true, // 自动分页
-        delayTime: 200, // 毫秒；切换效果持续时间（执行一次效果用多少毫秒）
-        interTime: 5000, // 毫秒；自动运行间隔（隔多少毫秒后执行下一个效果）
-        switchLoad : "_src" // 切换加载，真实图片路径为"_src"
-    });
 
 
     function viewLogisticDetail() {
-        var url = "/PhoneNode/random"
+        var url = "/PhoneNode/BrandStyleRom?name=other"
 		var goodId = $("#goodId").val();
         var goodName = $("#goodName").val();
         var shopName = $("#shopName").val();
@@ -364,6 +426,23 @@
         viewLogisticDetail();
         viewShiShang();
     }
+</script>
+
+<script>
+
+    /*banner首页轮播*/
+    TouchSlide({
+        slideCell : "#focus",
+        titCell : ".hd ul", // 开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        mainCell : ".bd ul",
+        effect : "leftLoop",
+        autoPlay : true, // 自动播放
+        autoPage : true, // 自动分页
+        delayTime: 200, // 毫秒；切换效果持续时间（执行一次效果用多少毫秒）
+        interTime: 5000, // 毫秒；自动运行间隔（隔多少毫秒后执行下一个效果）
+        switchLoad : "_src" // 切换加载，真实图片路径为"_src"
+    });
+s
 </script>
 
 <script src="../static/js/ba/aui-scroll.js" type="text/javascript" charset="utf-8"></script>

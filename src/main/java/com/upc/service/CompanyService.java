@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -41,4 +42,12 @@ public class CompanyService {
         Iterable<Company>  result = companyRepository.findAll();
         return result;
     }
+
+    @Transactional(readOnly = true)
+    public List<Company> findByBrand(String name){
+        List<Company> result = companyRepository.findByBrand(name);
+        return result;
+    }
+
+
 }
