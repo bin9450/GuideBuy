@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>毕业设计</title>
+	<link href="../static/css/dialog.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/static/css/ui.css">
 	<link href="./favicon.ico" type="image/x-icon" rel="icon">
 	<link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
@@ -200,7 +201,7 @@
               }
           })
         viewUser();
-        alert("移除成功");
+        Dialog.init('移除成功',500);
     };
 </script>
 
@@ -217,5 +218,6 @@
 <script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="/static/js/car/car-js.js"></script>
 <script type="text/javascript" src="/static/js/car/car-mi.js"></script>
+<script src="/static/js/dialog/mDialogMin.js"></script>
 </body>
 </html>
