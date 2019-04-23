@@ -24,8 +24,10 @@ public class CarService {
     @Autowired
     CarRelationService carRelationService;
 
-    public List<ShopCar> selInfo(String userId ){
-        List<ShopCar> result = shopCarMapper.selInfo(userId);
+    public List<ShopCar> selInfo(String userId,int page){
+        int start = page;
+        int end = page+10;
+        List<ShopCar> result = shopCarMapper.selInfo(userId,start,end);
         return result;
     }
 

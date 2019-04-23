@@ -32,7 +32,9 @@
 
             </ul>
         </div>
+        <p id="domore" class="pd-sold">加载更多</p>
     </div>
+    <div style="height:1px"></div>
 </div>
 
 
@@ -43,6 +45,7 @@
 <!--获取信息-->
 <script>
     var ht = '';
+    var page = 1;
     function viewUser() {
         var url = '/usernode/getUser';
         var userId = $("#userId").val();
@@ -68,7 +71,7 @@
 
 <script>
     function viewGoodInfo(nowUserId) {
-        var url = '/CollectionGood/selInfo?userId='+nowUserId;
+        var url = '/CollectionGood/selInfo?userId='+nowUserId+'&page='+page;
         var goodId = $("#goodId").val();
         var collectTime = $("#collectTime").val();
         var state = $("#state").val();
@@ -136,9 +139,17 @@
     };
 </script>
 
+<script>
+    function doMore(){
+        page++;
+        viewUser();
+    }
+</script>
+
 <script type="text/javascript">
     window.onload = function(){
         viewUser();
+        $("#domore").on("click",doMore);
     }
 </script>
 

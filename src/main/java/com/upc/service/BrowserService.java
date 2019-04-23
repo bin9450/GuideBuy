@@ -24,8 +24,10 @@ public class BrowserService {
     @Autowired
     BrowserRelationService browserRelationService;
 
-    public List<Browser> selInfo(String userId ){
-        return browserMapper.selInfo(userId);
+    public List<Browser> selInfo(String userId ,int page){
+        int start = page;
+        int end = page+10;
+        return browserMapper.selInfo(userId,start,end);
     }
 
     public void insert(Browser browser){

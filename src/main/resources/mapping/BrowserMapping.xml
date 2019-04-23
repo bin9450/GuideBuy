@@ -9,7 +9,7 @@
     </resultMap>
 
     <select id="selInfo" resultType="Browser">
-        select * from browser where userid = #{userId} ORDER BY id DESC
+        select * from browser where userid = #{userId} ORDER BY id DESC LIMIT #{start},#{end};
     </select>
     <!--SELECT DISTINCT *,COUNT(*) FROM browser WHERE  userid = 7 GROUP BY goodid-->
 

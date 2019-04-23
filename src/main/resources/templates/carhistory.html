@@ -46,11 +46,10 @@
 
                 </ul>
             </div>
+            <p id="domore" class="pd-sold">加载更多</p>
         </div>
         <div style="height:1px"></div>
         <!--内容信息 end-->
-
-
 
 
 
@@ -69,6 +68,7 @@
 <!--获取信息-->
 <script>
     var ht = '';
+    var page = 1;
     function viewUser() {
         var url = '/usernode/getUser';
         var userId = $("#userId").val();
@@ -94,7 +94,7 @@
 
 <script>
     function viewGoodInfo(nowUserId) {
-        var url = '/Car/selInfo?userId='+nowUserId;
+        var url = '/Car/selInfo?userId='+nowUserId+'&page='+page;
         var goodId = $("#goodId").val();
         var doTime = $("#doTime").val();
         var state = $("#state").val();
@@ -162,12 +162,17 @@
         })
     };
 </script>
-
+<script>
+    function doMore(){
+        page++;
+        viewUser();
+    }
+</script>
 
 <script>
     window.onload = function(){
         viewUser();
-
+        $("#domore").on("click",doMore);
     }
 </script>
 

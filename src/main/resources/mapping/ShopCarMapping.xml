@@ -10,7 +10,7 @@
     </resultMap>
 
     <select id="selInfo" resultType="ShopCar">
-        select * from shop_car where userid = #{userId} ORDER BY id DESC
+        select * from shop_car where userid = #{userId} ORDER BY id DESC LIMIT #{start},#{end}
     </select>
 
     <insert id="insert" parameterType="ShopCar">

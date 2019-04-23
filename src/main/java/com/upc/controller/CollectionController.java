@@ -24,8 +24,8 @@ public class CollectionController {
     CollectionService collectionService;
 
     @RequestMapping("/selInfo")
-    public List<CollectionGood> selInfo(@RequestParam String userId ){
-        return collectionService.selInfo(userId);
+    public List<CollectionGood> selInfo(@RequestParam String userId , @RequestParam int page ){
+        return collectionService.selInfo(userId,page);
     }
 
     @RequestMapping("/insert")

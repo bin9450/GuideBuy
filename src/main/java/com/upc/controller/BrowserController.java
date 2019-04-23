@@ -23,8 +23,9 @@ public class BrowserController {
     BrowserService browserService;
 
     @RequestMapping("/selInfo")
-    public List<Browser> selInfo(@RequestParam String userId ){
-        return browserService.selInfo(userId);
+    public List<Browser> selInfo(@RequestParam String userId,
+                                 @RequestParam int page){
+        return browserService.selInfo(userId,page);
     }
 
    @RequestMapping("/insert")

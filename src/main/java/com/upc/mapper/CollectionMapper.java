@@ -1,6 +1,7 @@
 package com.upc.mapper;
 
 import com.upc.entity.CollectionGood;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface CollectionMapper {
-    List<CollectionGood> selInfo(String userId );
+    List<CollectionGood> selInfo(@Param("userId") String userId ,@Param("start") int start, @Param("end") int end);
     void insert(CollectionGood collectionGood);
     void eliminate(CollectionGood collectionGood);
 }

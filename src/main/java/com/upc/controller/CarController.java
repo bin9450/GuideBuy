@@ -24,8 +24,8 @@ public class CarController {
     CarService carService;
 
     @RequestMapping("/selInfo")
-    public List<ShopCar> selInfo(@RequestParam String userId ){
-        List<ShopCar> result = carService.selInfo(userId);
+    public List<ShopCar> selInfo(@RequestParam String userId ,@RequestParam int page ){
+        List<ShopCar> result = carService.selInfo(userId,page);
         return result;
     }
 

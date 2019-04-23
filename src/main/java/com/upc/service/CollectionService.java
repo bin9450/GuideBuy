@@ -24,8 +24,10 @@ public class CollectionService {
     @Autowired
     CollectionRelationService collectionRelationService;
 
-    public List<CollectionGood> selInfo(String userId ){
-        List<CollectionGood> result = collectionMapper.selInfo(userId);
+    public List<CollectionGood> selInfo(String userId ,int page){
+        int start = page;
+        int end = page+10;
+        List<CollectionGood> result = collectionMapper.selInfo(userId,start,end);
         return result;
     }
 
