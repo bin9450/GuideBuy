@@ -1,9 +1,15 @@
 package com.upc.service;
 
+import com.upc.domain.relations.BrowserRelation;
+import com.upc.domain.relations.BuyRelation;
 import com.upc.repository.BuyRelationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Author: Pan
@@ -20,6 +26,34 @@ public class BuyRelationService {
 
     public BuyRelationService(BuyRelationRepository buyRelationRepository) {
         this.buyRelationRepository = buyRelationRepository;
+    }
+
+    @Transactional(readOnly = true)
+    public Iterable<BuyRelation> findAll(){
+        Iterable<BuyRelation> result = buyRelationRepository.findAll();
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<BuyRelation> findByUserNodeId(int userId){
+        List<BuyRelation> result = buyRelationRepository.findByUserNodeId(userId);
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public BuyRelation findByUserAndPhone(int userId,int goodId){
+        BuyRelation result = buyRelationRepository.findByUserAndPhone(userId, goodId);
+        return result;
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void createBuyRelation(int userId,int goodId,String lastTime){
+        buyRelationRepository.createBuyRelation(userId, goodId, lastTime);
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void updateInfo(int userId,int goodId, String lastTime){
+        buyRelationRepository.updateInfo(userId, goodId, lastTime);
     }
 
 }

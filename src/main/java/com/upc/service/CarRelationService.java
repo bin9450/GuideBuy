@@ -53,13 +53,13 @@ public class CarRelationService {
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public void createCarRelation(int userId,int goodId,String lastTime){
-        carRelationRepository.createCarRelation(userId, goodId, lastTime);
+    public void createCarRelation(int userId,int goodId,String carTime){
+        carRelationRepository.createCarRelation(userId, goodId, carTime);
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public void updateInfo(int userId,int goodId,String lastTime){
-        carRelationRepository.updateInfo(userId, goodId, lastTime);
+    public void updateInfo(int userId,int goodId,String carTime){
+        carRelationRepository.updateInfo(userId, goodId, carTime);
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)

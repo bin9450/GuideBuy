@@ -319,11 +319,14 @@
                 goodId:nowGoodId
             },
             success: function (data){
+				Dialog.init('添加成功',500);
 
+            },error:function () {
+                Dialog.init('已经添加',500);
             }
         })
 		//alert("添加成功");
-        Dialog.init('添加成功',500);
+
     };
 
 </script>

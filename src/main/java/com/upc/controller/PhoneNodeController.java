@@ -39,8 +39,8 @@ public class PhoneNodeController {
     }
 
    @RequestMapping ("/allPage")
-    public List<PhoneNode> findAllPage(@RequestParam int pageNum ,@RequestParam int pageSize) {
-      return phoneNodeService.findAllByPage(pageNum, pageSize);
+    public List<PhoneNode> findAllPage() {
+      return phoneNodeService.findAllByPage();
     }
 
     @RequestMapping("/random")

@@ -46,9 +46,10 @@ public class PhoneNodeService {
     }
 
     @Transactional(readOnly = true)
-    public List<PhoneNode> findAllByPage(int pageNum,int pageSize){
-        int skip = (pageNum-1)*pageSize;
-        int limit = pageSize;
+    public List<PhoneNode> findAllByPage(){
+        int count = phoneNodeRepository.countAll() - 4;
+        int skip= (int)(1+Math.random()*(count-1+1));
+        int limit = 4;
         List<PhoneNode> result = phoneNodeRepository.findAllByPage(skip,limit);
         return result;
     }
@@ -60,12 +61,11 @@ public class PhoneNodeService {
 
     @Transactional(readOnly = true)
     public List<PhoneNode> findRandom(){
-       // List<PhoneNode> result = phoneNodeRepository.find(i);
-        int i= (int)(1+Math.random()*(291-1+1));
-        int j = i+15;
+        int count = phoneNodeRepository.countAll() - 4;
+        int i= (int)(1+Math.random()*(count-1+1));
+        int j = i+30;
         //System.out.println(i);
         List<PhoneNode> result = phoneNodeRepository.findRandom(i,j);
-       // result = result.subList(i,i+16);
         return result;
     }
 

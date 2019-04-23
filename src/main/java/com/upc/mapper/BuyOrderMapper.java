@@ -1,6 +1,9 @@
 package com.upc.mapper;
 
+import com.upc.entity.BuyOrder;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @Author: Pan
@@ -10,5 +13,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BuyOrderMapper {
-
+    List<BuyOrder> selInfo(String userId );
+    void insert(BuyOrder buyOrder);
 }

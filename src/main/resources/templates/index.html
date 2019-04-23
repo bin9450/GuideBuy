@@ -36,17 +36,17 @@
 				<div class="bd">
 					<div class="tempWrap" style="overflow:hidden; position:relative;">
 						<ul id="Gallery" class="gallery" style="width: 2250px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 200ms; transform: translate(-1125px, 0px) translateZ(0px);">
-							<li style="display: table-cell; vertical-align: top; width: 375px;" >
-								<a href="#"><img src="/static/js/pd/img/banner1.jpg"></a>
+							<li id="banli_0" style="display: table-cell; vertical-align: top; width: 375px;" >
+								<!--<a href="#"><img src="/static/js/pd/img/banner1.jpg"></a>-->
 							</li>
-							<li style="display: table-cell; vertical-align: top; width: 375px;">
-								<a href="#"><img src="/static/js/pd/img/banner2.jpg"></a>
+							<li id="banli_1" style="display: table-cell; vertical-align: top; width: 375px;">
+								<!--<a href="#"><img src="/static/js/pd/img/banner2.jpg"></a>-->
 							</li>
-							<li style="display: table-cell; vertical-align: top; width: 375px;" >
-								<a href="#"><img src="/static/js/pd/img/banner1.jpg"></a>
+							<li  id="banli_2" style="display: table-cell; vertical-align: top; width: 375px;" >
+								<!--<a href="#"><img src="/static/js/pd/img/banner1.jpg"></a>-->
 							</li>
-							<li style="display: table-cell; vertical-align: top; width: 375px;">
-								<a href="#"><img src="/static/js/pd/img/banner2.jpg"></a>
+							<li  id="banli_3" style="display: table-cell; vertical-align: top; width: 375px;">
+								<!--<a href="#"><img src="/static/js/pd/img/banner2.jpg"></a>-->
 							</li>
 						</ul>
 					</div>
@@ -420,8 +420,49 @@
 
 </script>
 
+<script>
+    function viewBanLi() {
+        var url = "/PhoneNode/allPage"
+        var goodId = $("#goodId").val();
+        var goodName = $("#goodName").val();
+        var shopName = $("#shopName").val();
+        var price = $("#price").val();
+        var comment = $("#comment").val();
+        var goodPic = $("#goodPic").val();
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            data: {
+                goodId: goodId,
+                goodName: goodName,//这里 : 前面一定要和json里面的字段一致.
+                shopName: shopName,
+                price: price,
+                comment: comment,
+                goodPic: goodPic
+            },
+            success: function (data) {
+                var ht= new Array();
+                console.log(data.length);
+				for (var i=0 ; i<data.length;i++){
+                    ht[i]='';
+				    ht[i]+='<a href="/page?goodId='+data[i].goodId+'">';
+                    ht[i]+='<img src="'+data[i].goodPic+'">';
+                    ht[i]+='</a>';
+				}
+                for (var i=0 ; i<data.length;i++){
+                    $('#banli_'+i).html(ht[i]);
+				}
+
+            }
+        })
+
+    };
+</script>
+
 <script type="text/javascript">
     window.onload = function(){
+        viewBanLi();
         viewDaPai();
         viewLogisticDetail();
         viewShiShang();
@@ -439,7 +480,7 @@
         autoPlay : true, // 自动播放
         autoPage : true, // 自动分页
         delayTime: 200, // 毫秒；切换效果持续时间（执行一次效果用多少毫秒）
-        interTime: 5000, // 毫秒；自动运行间隔（隔多少毫秒后执行下一个效果）
+        interTime: 2000, // 毫秒；自动运行间隔（隔多少毫秒后执行下一个效果）
         switchLoad : "_src" // 切换加载，真实图片路径为"_src"
     });
 s

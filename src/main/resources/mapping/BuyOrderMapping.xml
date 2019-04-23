@@ -8,5 +8,14 @@
         <result column="buytime" jdbcType="TIMESTAMP" property="buyTime" />
     </resultMap>
 
+    <select id="selInfo" resultType="BuyOrder">
+        select * from buyorder where userid = #{userId} ORDER BY id DESC
+    </select>
+    <!--SELECT DISTINCT *,COUNT(*) FROM browser WHERE  userid = 7 GROUP BY goodid-->
+
+    <insert id="insert" parameterType="BuyOrder">
+        INSERT INTO buyorder (userid,goodid,buytime) VALUES (#{userId},#{goodId},#{buyTime})
+    </insert>
+
 
 </mapper>

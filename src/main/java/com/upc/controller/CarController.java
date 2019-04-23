@@ -1,5 +1,6 @@
 package com.upc.controller;
 
+import com.upc.domain.relations.CarRelation;
 import com.upc.entity.ShopCar;
 import com.upc.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,13 @@ public class CarController {
     }
 
     @RequestMapping("/insert")
-    public void insert(ShopCar shopCar){
+    public CarRelation insert(ShopCar shopCar){
         if (shopCar.getGoodId() != null &&
                 shopCar.getUserId() != null) {
-            carService.insert(shopCar);
+            CarRelation is = carService.insert(shopCar);
+            return is;
+        }else{
+            return null;
         }
     }
 

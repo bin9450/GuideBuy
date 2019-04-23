@@ -1,9 +1,13 @@
 package com.upc.controller;
 
+import com.upc.entity.BuyOrder;
 import com.upc.service.BuyOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @Author: Pan
@@ -17,4 +21,19 @@ public class BuyOrderController {
 
     @Autowired
     BuyOrderService buyOrderService;
+
+    @RequestMapping("/selInfo")
+    public List<BuyOrder> selInfo(@RequestParam String userId ){
+        List<BuyOrder> result = buyOrderService.selInfo(userId);
+        return result;
+    }
+
+    @RequestMapping("/insert")
+    void insert(BuyOrder buyOrder){
+        if (buyOrder.getUserId() != null &&
+                buyOrder.getGoodId() != null){
+            buyOrderService.insert(buyOrder);
+        }
+    }
+
 }

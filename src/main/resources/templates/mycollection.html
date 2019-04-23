@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>毕业设计</title>
     <link rel="stylesheet" type="text/css" href="/static/css/ui.css">
+    <link href="../static/css/dialog.css" rel="stylesheet">
     <link href="./favicon.ico" type="image/x-icon" rel="icon">
     <link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
 </head>
@@ -42,10 +43,11 @@
 <script src="/static/js/page/js/jquery.min.js"></script>
 <script src="/static/js/page/js/swiper.min.js"></script>
 <script src="/static/js/page/js/jquery.lazyload.js"></script>
+<script src="/static/js/dialog/mDialogMin.js"></script>
 
 <!--获取信息-->
 <script>
-
+    var LOCAL_USERId='';
     function viewUser() {
         var url = '/usernode/getUser';
         var userId = $("#userId").val();
@@ -62,6 +64,7 @@
             },
             success: function (data) {
                 viewGoodInfo(data.userId)
+                LOCAL_USERId = data.userId;
                 //console.log(data);
             }
         })
@@ -104,16 +107,46 @@
                     ht+='<h2>'+data[i].phoneNode.goodName+'</h2>';
                     ht+='<p class="aui-o">收藏时间：'+data[i].collectTime+'</p>';
                     ht+='<p class="money"><em class="aui-redd">'+data[i].phoneNode.price+'￥</em>';
-                    ht+='<a href="" style="color:#ff5000;border:1px solid #ff5000; padding:2px 5px;font-size:12px; border-radius:3px">加入购物车</a>';
+                    ht+='<a id="car_'+data[i].phoneNode.goodId+'" style="color:#ff5000;border:1px solid #ff5000; padding:2px 5px;font-size:12px; border-radius:3px">加入购物车</a>';
                     ht+='</p></div></li>';
                 }
                 $("#goodlist").html(ht);
+                for (var i=0;i<data.length;i++) {
+                    $('#car_'+data[i].phoneNode.goodId).on("click",car);
+                }
             }
         })
     };
 
 </script>
 
+<script>
+
+    function car() {
+        var id = $(this).attr("id");
+        var index = id.substr(4,id.length);
+        var url = '/Car/insert';
+        var goodId = ''+index;
+        console.log(goodId);
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'post',
+            async:false,
+            data: {
+                userId:LOCAL_USERId,
+                goodId:goodId
+            },
+            success: function (data){
+                Dialog.init('添加成功',500);
+
+            },error:function () {
+                Dialog.init('已经添加',500);
+            }
+        })
+        viewUser();
+    };
+</script>
 
 
 <script type="text/javascript">

@@ -165,7 +165,7 @@
 			});
 			
 			//联网加载列表数据
-			 page = {num:1, size:6};
+			 page = {num:1, size:8};
 			  //num:当前页 从1开始, size:每页数据条数
 			function getListData(page){
 				//联网加载数据
@@ -227,7 +227,7 @@
 
               	$.ajax({
 		                type: 'GET',
-		                url: '/PhoneNode/all',
+		                url: '/PhoneNode/random',
 		                //url: '/PhoneNode/allPage?pageNum='+pageNum+"&pageSize="+pageSize,
 		                dataType: 'json',
                     data: {

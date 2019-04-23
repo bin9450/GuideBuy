@@ -1,5 +1,6 @@
 package com.upc.service;
 
+import com.upc.domain.relations.CarRelation;
 import com.upc.entity.ShopCar;
 import com.upc.mapper.ShopCarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,21 @@ public class CarService {
         return result;
     }
 
-    public void insert(ShopCar shopCar){
+    public CarRelation insert(ShopCar shopCar){
         int userId = Integer.parseInt(shopCar.getUserId());
         int goodId = Integer.parseInt(shopCar.getGoodId());
         Date date = new Date();
-        shopCar.setDoTime(date);
-        shopCarMapper.insert(shopCar);
-
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String carTime = sdf.format(date);
-        carRelationService.createCarRelation(userId,goodId,carTime);
+        shopCar.setDoTime(date);
+        CarRelation result = carRelationService.findByUserAndPhone(userId,goodId);
+        if (result == null){
+            shopCarMapper.insert(shopCar);
+            carRelationService.createCarRelation(userId,goodId,carTime);
+            return carRelationService.findByUserAndPhone(userId,goodId);
+        }else{
+            return null;
+        }
     }
 
     public void eliminate(ShopCar shopCar){
