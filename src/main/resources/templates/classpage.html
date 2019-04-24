@@ -24,7 +24,7 @@
     <div class="toolbar statusbar-padding">
         <button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
         <div class="header-title">
-            <div class="title">分类</div>
+            <div id="titlename" class="title"></div>
         </div>
     </div>
 </div>
@@ -90,7 +90,7 @@
     function viewShopName() {
         var name = 'name';
         var url = "/Company/findByBrand?name="+getQueryString(name);
-
+        var tn = '';
         var goodId = $("#goodId").val();
         var shopName = $("#shopName").val();
         var goodName = $("#goodName").val();
@@ -116,6 +116,15 @@
                 var ht = '';
                 var ht1 = '';
                 //console.log(data.length)
+                if (getQueryString(name) == 'other'){
+                    tn='主打性价';
+                }else if(getQueryString(name) == 'medium'){
+                    tn='时尚潮流';
+                }else{
+                    tn='大牌热卖';
+                }
+                $("#titlename").html(tn);
+
                 for (var i = 0; i < data.length; i++) {
                     ht = ht + '<ul>';
                     if(i==0){

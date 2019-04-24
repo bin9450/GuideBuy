@@ -25,8 +25,9 @@ public class CarService {
     CarRelationService carRelationService;
 
     public List<ShopCar> selInfo(String userId,int page){
-        int start = page;
-        int end = page+10;
+        int size = 10;
+        int start = (page-1)*size;
+        int end = size;
         List<ShopCar> result = shopCarMapper.selInfo(userId,start,end);
         return result;
     }

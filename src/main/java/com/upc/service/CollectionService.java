@@ -25,8 +25,9 @@ public class CollectionService {
     CollectionRelationService collectionRelationService;
 
     public List<CollectionGood> selInfo(String userId ,int page){
-        int start = page;
-        int end = page+10;
+        int size = 10;
+        int start = (page-1)*size;
+        int end = size;
         List<CollectionGood> result = collectionMapper.selInfo(userId,start,end);
         return result;
     }
