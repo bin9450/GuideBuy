@@ -27,8 +27,8 @@ public class BrowserRelationController {
     }
 
     @RequestMapping("/findByUserNodeId")
-    public Iterable<BrowserRelation> findByUserNodeId(@RequestParam int userId){
-        Iterable<BrowserRelation> result = browserRelationService.findByUserNodeId(userId);
+    public Iterable<BrowserRelation> findByUserNodeId(@RequestParam int userId,@RequestParam int page){
+        Iterable<BrowserRelation> result = browserRelationService.findByUserNodeId(userId,page);
         return result;
     }
 

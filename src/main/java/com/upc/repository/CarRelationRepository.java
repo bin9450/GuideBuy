@@ -19,8 +19,10 @@ public interface CarRelationRepository extends Neo4jRepository<CarRelation,Long>
 
     @Query("match p=(n:UserNode)-[c:CAR_GOOD]->(m:Phone)" +
             "where n.user_id = {userId} " +
-            "return p order by c.CarTime desc")
-    List<CarRelation> findByUserNodeId(@Param("userId") int userId);
+            "return p order by c.CarTime desc skip{skip} limit{limit}")
+    List<CarRelation> findByUserNodeId(@Param("userId") int userId,
+                                       @Param("skip") int skip,
+                                       @Param("limit") int limit);
 
     @Query("match p=(n:UserNode)-[c:CAR_GOOD]->(m:Phone) " +
             "where n.user_id = {userId} and  m.good_id = {goodId} " +

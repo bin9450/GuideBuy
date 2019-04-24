@@ -32,8 +32,11 @@ public class BrowserRelationService {
     }
 
     @Transactional(readOnly = true)
-    public Iterable<BrowserRelation> findByUserNodeId(int userId){
-        Iterable<BrowserRelation> result = browserRelationRepository.findByUserNodeId(userId);
+    public Iterable<BrowserRelation> findByUserNodeId(int userId,int page){
+        int size = 10;
+        int skip = (page-1)*size;
+        int limit = size;
+        Iterable<BrowserRelation> result = browserRelationRepository.findByUserNodeId(userId,skip,limit);
         return result;
     }
 

@@ -19,8 +19,10 @@ public interface CollectionRelationRepository extends Neo4jRepository<Collection
 
     @Query("match p=(n:UserNode)-[c:COLLECT_GOOD]->(m:Phone)" +
             "where n.user_id = {userId} " +
-            "return p order by c.CollectTime desc")
-    List<CollectionRelation> findByUserNodeId(@Param("userId") int userId);
+            "return p order by c.CollectTime desc skip {skip} limit {limit}")
+    List<CollectionRelation> findByUserNodeId(@Param("userId") int userId,
+                                              @Param("skip") int skip,
+                                              @Param("limit") int limit);
 
     @Query("match p=(n:UserNode)-[c:COLLECT_GOOD]->(m:Phone) " +
             "where n.user_id = {userId} and  m.good_id = {goodId} " +

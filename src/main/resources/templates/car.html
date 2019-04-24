@@ -56,6 +56,8 @@
 
 				</ul>
 			</div>
+			<p id="domore" class="pd-sold">加载更多</p>
+			<div id="daodi"></div>
 		</div>
 		<div style="height:1px"></div>
 		<!--内容信息 end-->
@@ -100,6 +102,8 @@
 
 <script>
 	var LOCAL_USERId='';
+    var ht = '';
+    var page = 1;
     function viewUser() {
         var url = '/usernode/getUser';
         var userId = $("#userId").val();
@@ -129,7 +133,7 @@
 <script>
 
     function viewGood(nowUserId) {
-        var url = "/CarRelation/findByUserNodeId?userId="+nowUserId;
+        var url = "/CarRelation/findByUserNodeId?userId="+nowUserId+'&page='+page;
         var carTime = $("#carTime").val();
         var goodId = $("#goodId").val();
         var goodName = $("#goodName").val();
@@ -152,7 +156,7 @@
 				}
             },
             success: function (data) {
-				var ht = '';
+
 				for (var i=0;i<data.length;i++){
 				    ht+='<li><section class="aui-crl">';
 				    ht+='<img src="'+data[i].phoneNode.goodPic+'">';
@@ -171,6 +175,13 @@
 				for (var i=0;i<data.length;i++) {
                     $('#del_'+data[i].phoneNode.goodId).on("click",del);
 				}
+                if (data.length == 0){
+                    var hh= '<h5 style="text-align:center;">到底了</h5>';
+                    $("#daodi").html(hh);
+                }
+            },error:function () {
+				//var hh= '<h5 style="text-align:center;">到底了</h5>';
+               // $("#daodi").html(ht);
             }
 
         })
@@ -205,12 +216,18 @@
     };
 </script>
 
+<script>
+    function doMore(){
+        page++;
+        viewUser();
+    }
+</script>
 
 
 <script>
     window.onload = function(){
         viewUser();
-
+        $("#domore").on("click",doMore);
     }
 </script>
 

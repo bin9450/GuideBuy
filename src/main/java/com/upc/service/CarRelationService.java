@@ -35,8 +35,11 @@ public class CarRelationService {
     }
 
     @Transactional(readOnly = true)
-    public List<CarRelation> findByUserNodeId(int userId){
-        List<CarRelation> result = carRelationRepository.findByUserNodeId(userId);
+    public List<CarRelation> findByUserNodeId(int userId,int page){
+        int size = 10;
+        int skip = (page-1)*size;
+        int limit = size;
+        List<CarRelation> result = carRelationRepository.findByUserNodeId(userId,skip,limit);
         return result;
     }
 

@@ -25,8 +25,8 @@ public class CollectionRelationController {
     CollectionRelationService collectionRelationService;
 
     @RequestMapping("/findByUserNodeId")
-    public List<CollectionRelation> findByUserNodeId(@RequestParam int userId){
-        List<CollectionRelation> result = collectionRelationService.findByUserNodeId(userId);
+    public List<CollectionRelation> findByUserNodeId(@RequestParam int userId,@RequestParam int page){
+        List<CollectionRelation> result = collectionRelationService.findByUserNodeId(userId,page);
         return result;
     }
 

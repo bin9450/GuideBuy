@@ -17,9 +17,11 @@ public interface BrowserRelationRepository extends  Neo4jRepository<BrowserRelat
 
     @Query("match p=(n:UserNode)-[b:BROWSE_GOOD]->(m:Phone)" +
                 "where n.user_id = {userId} " +
-            "return p order by b.LastTime desc")
-    Iterable<BrowserRelation> findByUserNodeId(@Param("userId") int userId);
-//
+            "return p order by b.LastTime desc skip{skip} limit{limit}")
+    Iterable<BrowserRelation> findByUserNodeId(@Param("userId") int userId,
+                                               @Param("skip") int skip,
+                                               @Param("limit") int limit);
+
     @Query("match p=(n:UserNode)-[b:BROWSE_GOOD]->(m:Phone) " +
             "where n.user_id = {userId} and  m.good_id = {goodId} " +
             "return p")
@@ -38,7 +40,7 @@ public interface BrowserRelationRepository extends  Neo4jRepository<BrowserRelat
     @Query("MATCH (n:UserNode)-[b:BROWSE_GOOD]->(m:Phone)" +
             " where n.user_id = {userId} and m.good_id = {goodId} " +
             "set b.BrowseTimes = b.BrowseTimes + 1 " +
-            "set b.LastTime = {lastTime} ")
+            "set b.LastTime = {lastTime}")
     void updateInfo(@Param("userId") int userId,@Param("goodId") int goodId,
                     @Param("lastTime") String lastTime);
 

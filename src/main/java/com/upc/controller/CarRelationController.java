@@ -23,8 +23,8 @@ public class CarRelationController {
     CarRelationService carRelationService;
 
     @RequestMapping("/findByUserNodeId")
-    public List<CarRelation> findByUserNodeId(@RequestParam int userId){
-        List<CarRelation> result = carRelationService.findByUserNodeId(userId);
+    public List<CarRelation> findByUserNodeId(@RequestParam int userId,@RequestParam int page){
+        List<CarRelation> result = carRelationService.findByUserNodeId(userId,page);
         return result;
     }
 

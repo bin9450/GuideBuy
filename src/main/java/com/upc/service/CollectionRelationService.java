@@ -33,8 +33,11 @@ public class CollectionRelationService {
     }
 
     @Transactional(readOnly = true)
-    public List<CollectionRelation> findByUserNodeId(int userId){
-        List<CollectionRelation> result = collectionRelationRepository.findByUserNodeId(userId);
+    public List<CollectionRelation> findByUserNodeId(int userId,int page){
+        int size = 10;
+        int skip = (page-1)*size;
+        int limit = size;
+        List<CollectionRelation> result = collectionRelationRepository.findByUserNodeId(userId,skip,limit);
         return result;
     }
 
