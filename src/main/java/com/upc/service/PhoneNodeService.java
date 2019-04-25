@@ -70,10 +70,12 @@ public class PhoneNodeService {
     }
 
     @Transactional(readOnly = true)
-    public List<PhoneNode> findByBrandStyle(String name){
-        int count = phoneNodeRepository.countByBrandStyle(name) - 6;
-        int skip= (int)(1+Math.random()*(count-1+1));
-        int limit = 6;
+    public List<PhoneNode> findByBrandStyle(String name,int page){
+        //int count = phoneNodeRepository.countByBrandStyle(name) - 6;
+        //int skip= (int)(1+Math.random()*(count-1+1));
+        int size = 6;
+        int skip = (page-1)*size;
+        int limit = size;
         List<PhoneNode> result = phoneNodeRepository.findByBrandStyleRom(name,skip,limit);
         return result;
     }

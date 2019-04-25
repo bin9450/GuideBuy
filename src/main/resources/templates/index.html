@@ -209,8 +209,10 @@
 <script type="text/javascript" src="../static/js/pd/aui-touchSlide.js"></script>
 
 <script>
+	var pageDaPai = 0;
     function viewDaPai() {
-        var url = "/PhoneNode/BrandStyleRom?name=high"
+        pageDaPai++;
+        var url = '/PhoneNode/BrandStyleRom?name=high&page='+pageDaPai;
         var goodId = $("#goodId").val();
         var goodName = $("#goodName").val();
         var shopName = $("#shopName").val();
@@ -231,6 +233,9 @@
                 goodPic: goodPic
             },
             success: function (data) {
+                if(data.length == 0){
+                    pageDaPai=0;
+				}else {
                 var ht = '';
                 // console.log(data);
                 for (var i = 0; i < data.length; i = i + 2) {
@@ -269,6 +274,7 @@
                     ht2 = ht2 + '</a>';
                 }
                 $("#dapai2").html(ht2);
+            	}
 
             }
         })
@@ -280,8 +286,10 @@
 </script>
 
 <script>
+	var pageShiShang = 0;
     function viewShiShang() {
-        var url = "/PhoneNode/BrandStyleRom?name=medium"
+        pageShiShang++;
+        var url = '/PhoneNode/BrandStyleRom?name=medium&page='+pageShiShang;
         var goodId = $("#goodId").val();
         var goodName = $("#goodName").val();
         var shopName = $("#shopName").val();
@@ -302,45 +310,48 @@
                 goodPic: goodPic
             },
             success: function (data) {
-                var ht = '';
-                // console.log(data);
-                for (var i = 0; i < data.length; i = i + 2) {
-                    ht = ht + '<span>';
-                    ht = ht + '<img src="';
-                    ht = ht + data[i].goodPic;
-                    ht = ht + '"> ';
-                    ht = ht + '</span>';
-                    ht = ht + '<a href="/page?goodId=';
-                    ht = ht + data[i].goodId;
-                    ht = ht +'" ';
-                    ht = ht + 'class="aui-flex-box">';
-                    ht = ht + '<h2>' + data[i].goodName + '</h2>';
-                    ht = ht + '<em>￥' + data[i].price + '   </em>';
-                    ht = ht + '<em>' + data[i].shopName + '  </em>';
-                    ht = ht + '<em>关注度 ' + data[i].comment + '   </em>';
-                    ht = ht + '</a>';
+                if (data.length == 0){
+                    pageShiShang=0;
+				}else {
+                    var ht = '';
+                    // console.log(data);
+                    for (var i = 0; i < data.length; i = i + 2) {
+                        ht = ht + '<span>';
+                        ht = ht + '<img src="';
+                        ht = ht + data[i].goodPic;
+                        ht = ht + '"> ';
+                        ht = ht + '</span>';
+                        ht = ht + '<a href="/page?goodId=';
+                        ht = ht + data[i].goodId;
+                        ht = ht + '" ';
+                        ht = ht + 'class="aui-flex-box">';
+                        ht = ht + '<h2>' + data[i].goodName + '</h2>';
+                        ht = ht + '<em>￥' + data[i].price + '   </em>';
+                        ht = ht + '<em>' + data[i].shopName + '  </em>';
+                        ht = ht + '<em>关注度 ' + data[i].comment + '   </em>';
+                        ht = ht + '</a>';
 
+                    }
+                    $("#shishang1").html(ht);
+                    var ht2 = '';
+                    for (var i = 1; i < data.length; i = i + 2) {
+                        ht2 = ht2 + '<span>';
+                        ht2 = ht2 + '<img src="';
+                        ht2 = ht2 + data[i].goodPic;
+                        ht2 = ht2 + '"> ';
+                        ht2 = ht2 + '</span>';
+                        ht2 = ht2 + '<a href="/page?goodId=';
+                        ht2 = ht2 + data[i].goodId;
+                        ht2 = ht2 + '" ';
+                        ht2 = ht2 + 'class="aui-flex-box">';
+                        ht2 = ht2 + '<h2>' + data[i].goodName + '</h2>';
+                        ht2 = ht2 + '<em>￥' + data[i].price + '   </em>';
+                        ht2 = ht2 + '<em>' + data[i].shopName + '  </em>';
+                        ht2 = ht2 + '<em>关注度 ' + data[i].comment + '   </em>';
+                        ht2 = ht2 + '</a>';
+                    }
+                    $("#shishang2").html(ht2);
                 }
-                $("#shishang1").html(ht);
-                var ht2 = '';
-                for (var i = 1; i < data.length; i = i + 2) {
-                    ht2 = ht2 + '<span>';
-                    ht2 = ht2 + '<img src="';
-                    ht2 = ht2 + data[i].goodPic;
-                    ht2 = ht2 + '"> ';
-                    ht2 = ht2 + '</span>';
-                    ht2 = ht2 + '<a href="/page?goodId=';
-                    ht2 = ht2 + data[i].goodId;
-                    ht2 = ht2 +'" ';
-                    ht2 = ht2 + 'class="aui-flex-box">';
-                    ht2 = ht2 + '<h2>' + data[i].goodName + '</h2>';
-                    ht2 = ht2 + '<em>￥' + data[i].price + '   </em>';
-                    ht2 = ht2 + '<em>' + data[i].shopName + '  </em>';
-                    ht2 = ht2 + '<em>关注度 ' + data[i].comment + '   </em>';
-                    ht2 = ht2 + '</a>';
-                }
-                $("#shishang2").html(ht2);
-
             }
         })
 
@@ -351,9 +362,10 @@
 
 <script>
 
-
+	var pageLog = 0;
     function viewLogisticDetail() {
-        var url = "/PhoneNode/BrandStyleRom?name=other"
+        pageLog++;
+        var url = '/PhoneNode/BrandStyleRom?name=other&page='+pageLog;
 		var goodId = $("#goodId").val();
         var goodName = $("#goodName").val();
         var shopName = $("#shopName").val();
@@ -374,6 +386,9 @@
                 goodPic: goodPic
             },
             success: function (data) {
+                if(data.length == 0 ){
+                    pageLog = 0;
+				}else{
                 var ht = '';
                // console.log(data);
                 for (var i = 0; i < data.length; i = i + 2) {
@@ -412,7 +427,7 @@
                     ht2 = ht2 + '</a>';
                 }
                 $("#phone-result2").html(ht2);
-
+                }
             }
         })
 

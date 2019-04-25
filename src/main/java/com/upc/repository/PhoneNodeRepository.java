@@ -39,10 +39,11 @@ public interface PhoneNodeRepository extends Neo4jRepository<PhoneNode,Long> {
     @Query("MATCH (n:Phone) RETURN count(n)")
     int countAll();
 
-    //根据厂商定位查询手机
+    //根据厂商定位推荐手机
     @Query("match (a:Brand_Style_Kind)-[re]->(b:Company)-[re2]->(c:Phone) " +
             "where a.name = {name} " +
-            "return c skip {skip} limit {limit}")
+            "return c order by toInt(c.comment) DESC " +
+            "skip {skip} limit {limit}")
     List<PhoneNode> findByBrandStyleRom(@Param("name") String name,
                                      @Param("skip") int skip,
                                      @Param("limit") int limit);

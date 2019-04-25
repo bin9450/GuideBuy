@@ -50,8 +50,8 @@ public class PhoneNodeController {
     }
 
     @RequestMapping("/BrandStyleRom")
-    public List<PhoneNode> findByBrandStyleRom(@RequestParam  String name){
-        return phoneNodeService.findByBrandStyle(name);
+    public List<PhoneNode> findByBrandStyleRom(@RequestParam  String name,@RequestParam  int page){
+        return phoneNodeService.findByBrandStyle(name,page);
     }
 
 }
