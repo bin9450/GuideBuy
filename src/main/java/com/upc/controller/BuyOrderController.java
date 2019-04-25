@@ -23,8 +23,8 @@ public class BuyOrderController {
     BuyOrderService buyOrderService;
 
     @RequestMapping("/selInfo")
-    public List<BuyOrder> selInfo(@RequestParam String userId ){
-        List<BuyOrder> result = buyOrderService.selInfo(userId);
+    public List<BuyOrder> selInfo(@RequestParam String userId ,@RequestParam int page){
+        List<BuyOrder> result = buyOrderService.selInfo(userId,page);
         return result;
     }
 

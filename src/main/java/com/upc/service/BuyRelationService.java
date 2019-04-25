@@ -35,8 +35,11 @@ public class BuyRelationService {
     }
 
     @Transactional(readOnly = true)
-    public List<BuyRelation> findByUserNodeId(int userId){
-        List<BuyRelation> result = buyRelationRepository.findByUserNodeId(userId);
+    public List<BuyRelation> findByUserNodeId(int userId,int page){
+        int size = 10;
+        int skip = (page-1)*size;
+        int limit = size;
+        List<BuyRelation> result = buyRelationRepository.findByUserNodeId(userId,skip,limit);
         return result;
     }
 
@@ -54,6 +57,11 @@ public class BuyRelationService {
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public void updateInfo(int userId,int goodId, String lastTime){
         buyRelationRepository.updateInfo(userId, goodId, lastTime);
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void deleteByug( int userId,int goodId){
+        buyRelationRepository.deleteByug(userId, goodId);
     }
 
 }

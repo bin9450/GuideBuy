@@ -19,8 +19,10 @@ public interface BuyRelationRepository extends Neo4jRepository<BuyRelation,Long>
 
     @Query("match p=(n:UserNode)-[b:BUY_GOOD]->(m:Phone)" +
             "where n.user_id = {userId} " +
-            "return p order by b.LastTime desc")
-    List<BuyRelation> findByUserNodeId(@Param("userId") int userId);
+            "return p order by b.LastTime desc skip{skip} limit{limit}")
+    List<BuyRelation> findByUserNodeId(@Param("userId") int userId,
+                                       @Param("skip") int skip,
+                                       @Param("limit") int limit);
 
     @Query("match p=(n:UserNode)-[b:BUY_GOOD]->(m:Phone) " +
             "where n.user_id = {userId} and  m.good_id = {goodId} " +
@@ -44,5 +46,9 @@ public interface BuyRelationRepository extends Neo4jRepository<BuyRelation,Long>
     void updateInfo(@Param("userId") int userId,@Param("goodId") int goodId,
                     @Param("lastTime") String lastTime);
 
+    @Query("match p=(n:UserNode)-[b:BUY_GOOD]->(m:Phone) " +
+            "where n.user_id = {userId} and  m.good_id = {goodId} " +
+            "delete b")
+    void deleteByug(@Param("userId") int userId,@Param("goodId") int goodId);
 
 }

@@ -2,6 +2,7 @@ package com.upc.entity;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -14,12 +15,18 @@ import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class BuyOrder {
 
     private Integer id;
     private String  userId;
     private String goodId;
     private Date buyTime;
+
+    public BuyOrder(String userId, String goodId) {
+        this.userId = userId;
+        this.goodId = goodId;
+    }
 
     @Override
     public String toString() {

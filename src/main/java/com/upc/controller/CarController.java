@@ -45,12 +45,12 @@ public class CarController {
         carService.eliminate(shopCar);
     }
 
-/*
+
     @RequestMapping("/buyIt")
     public void buyIt(ShopCar shopCar){
         carService.buyIt(shopCar);
     }
-    */
+
 
 
 }

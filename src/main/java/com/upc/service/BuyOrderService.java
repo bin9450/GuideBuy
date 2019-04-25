@@ -24,8 +24,11 @@ public class BuyOrderService {
     @Autowired
     BuyRelationService buyRelationService;
 
-    public List<BuyOrder> selInfo(String userId ){
-        List<BuyOrder> result = buyOrderMapper.selInfo(userId);
+    public List<BuyOrder> selInfo(String userId,int page){
+        int size = 10;
+        int start = (page-1)*size;
+        int end = size;
+        List<BuyOrder> result = buyOrderMapper.selInfo(userId,start,end);
         return result;
     }
 

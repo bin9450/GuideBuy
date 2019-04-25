@@ -32,4 +32,14 @@ public class MeController {
         return "mycollection";
     }
 
+    @RequestMapping("/order")
+    public String showOrder(){
+        return "order";
+    }
+    @RequestMapping("/orderdetail")
+    public String showOrderDetail(){
+        return "orderdetail";
+    }
+
+
 }

@@ -23,9 +23,14 @@ public class BuyRelationController {
     BuyRelationService buyRelationService;
 
     @RequestMapping("/findByUserNodeId")
-    public List<BuyRelation> findByUserNodeId(@RequestParam int userId){
-        List<BuyRelation> result = buyRelationService.findByUserNodeId(userId);
+    public List<BuyRelation> findByUserNodeId(@RequestParam int userId,@RequestParam int page){
+        List<BuyRelation> result = buyRelationService.findByUserNodeId(userId,page);
         return result;
     }
+
+/*    @RequestMapping("/deleteByug")
+    public void deleteByug( int userId,int goodId){
+        buyRelationService.deleteByug(userId, goodId);
+    }*/
 
 }

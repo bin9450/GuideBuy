@@ -174,6 +174,7 @@
 
 				for (var i=0;i<data.length;i++) {
                     $('#del_'+data[i].phoneNode.goodId).on("click",del);
+                    $('#buy_'+data[i].phoneNode.goodId).on("click",buy);
 				}
                 if (data.length == 0){
                     var hh= '<h5 style="text-align:center;">到底了</h5>';
@@ -192,6 +193,31 @@
 
 <!--购买/删除-->
 <script>
+
+    function buy() {
+        var id = $(this).attr("id");
+        var index = id.substr(4,id.length);
+        var url = '/Car/buyIt';
+        var goodId = ''+index;
+        console.log(goodId);
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'post',
+            async:false,
+            data: {
+                userId:LOCAL_USERId,
+                goodId:goodId
+            },
+            success: function (data){
+
+            }
+        })
+		ht='';
+        viewUser();
+        Dialog.init('购买成功',500);
+    };
+
     function del() {
         var id = $(this).attr("id");
         var index = id.substr(4,id.length);
@@ -211,6 +237,7 @@
 
               }
           })
+        ht='';
         viewUser();
         Dialog.init('移除成功',500);
     };

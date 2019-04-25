@@ -1,6 +1,7 @@
 package com.upc.service;
 
 import com.upc.domain.relations.CarRelation;
+import com.upc.entity.BuyOrder;
 import com.upc.entity.ShopCar;
 import com.upc.mapper.ShopCarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class CarService {
     ShopCarMapper shopCarMapper;
     @Autowired
     CarRelationService carRelationService;
+    @Autowired
+    BuyOrderService buyOrderService;
 
     public List<ShopCar> selInfo(String userId,int page){
         int size = 10;
@@ -57,13 +60,13 @@ public class CarService {
     }
 
     public void buyIt(ShopCar shopCar){
+        BuyOrder buyOrder = new BuyOrder(shopCar.getUserId(),shopCar.getGoodId());
         int userId = Integer.parseInt(shopCar.getUserId());
         int goodId = Integer.parseInt(shopCar.getGoodId());
         shopCarMapper.buyIt(shopCar);
         carRelationService.deleteRelation(userId,goodId);
-        /*
-                添加购买关系
-        */
+        buyOrderService.insert(buyOrder);
+
 
     }
 

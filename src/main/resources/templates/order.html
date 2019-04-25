@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>毕业设计</title>
+    <link href="../static/css/dialog.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/ui.css">
+    <link href="./favicon.ico" type="image/x-icon" rel="icon">
+    <link href="./iTunesArtwork.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+</head>
+<body>
+
+<div class="aui-container">
+    <div class="aui-page">
+        <div class="header">
+            <div class="header-background"></div>
+            <div class="toolbar statusbar-padding">
+                <button class="bar-button back-button" onclick="history.go(-1);" dwz-event-on-click="click"><i class="icon icon-back"></i></button>
+                <!--<a class="bar-button" data-href="home.html?dwz_callback=home_render" target="navTab" rel="home"><i class="icon icon-back"></i></a>-->
+                <div class="header-title">
+                    <div class="title">订单</div>
+                </div>
+                <button class="bar-button"
+                        onclick="javascrtpt:window.location.href='/meInfo/orderdetail'"
+                        dwz-event-on-click="click">
+                    <h5>详情</h5>
+                </button>
+
+            </div>
+        </div>
+        <div style="height:50px"></div>
+        <div class="main_con">
+            <!--	<div class="main_con_allchoose ">
+                    <span class="circle"></span>全选 <a href="javascript:del_goods()"><img src="/static/images/icon-png/delete-icon.png" /></a>
+                </div>-->
+            <div class="main_con_goods">
+                <ul id="goodlist">
+
+                    <!--					<li>
+                                            <section class="aui-crl">
+                                                <span class="circle"></span>
+                                                <img src="/static/images/img/b4.jpg">
+                                            </section>
+                                            <div style="width:auto; padding-left:10px">
+                                                <h2>2017春装新款时尚女装宽松贴布开衫针织衫NG5836</h2>
+                                                <p class="aui-o">颜色分类:黑色,尺码:M</p>
+                                                <p class="money"><em class="aui-redd">90￥</em>
+                                                    <input class="add" type="button" value="" />
+                                                    <input class="num" type="number" value="1"  />
+                                                    <input class="del" type="button" value="" />
+                                                </p>
+                                            </div>
+                                        </li>-->
+
+                </ul>
+            </div>
+            <p id="domore" class="pd-sold">加载更多</p>
+            <div id="daodi"></div>
+        </div>
+        <div style="height:1px"></div>
+        <!--内容信息 end-->
+
+        <!--结算信息 start-->
+        <!--		<div class="settlement t-line">
+                    <div class="settlement_left">
+                        <font class="zongji">总计：</font><font class="money">￥0</font><br />
+                        （共0件，不含运费）
+                    </div>
+                    <div class="settlement_right">
+                        <a href="confirm.html">去结算</a>
+                    </div>
+                </div>-->
+        <!--结算信息 end-->
+
+        <!--删除弹窗 start-->
+        <!--		<div class="del_tc">
+                    <div class="del_tc_box">
+                        <div class="del_tc_box_title">
+                            确认删除此商品？
+                        </div>
+                        <div class="del_tc_box_content">
+                            <input class="cancel" type="button" value="取消" onclick="del_goods_cancel()"/>
+                            <input class="ok" type="button" value="确认" />
+                        </div>
+                    </div>
+                </div>-->
+        <!--删除弹窗 end-->
+
+
+
+        <!--无商品页面 start-->
+        <div class="no_goods">
+
+        </div>
+        <!--无商品页面 end-->
+    </div>
+</div>
+
+<script>
+    var LOCAL_USERId='';
+    var ht = '';
+    var page = 1;
+    function viewUser() {
+        var url = '/usernode/getUser';
+        var userId = $("#userId").val();
+        var nickName = $("#nickName").val();
+        var userName = $("#userName").val();
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            async:false,
+            data: {
+                userId:userId,
+                nickName:nickName,
+                userName:userName
+            },
+            success: function (data) {
+                var nowUserId = data.userId;
+                LOCAL_USERId = data.userId;
+                viewGood(nowUserId);
+            }
+        })
+
+    };
+
+</script>
+
+<script>
+
+    function viewGood(nowUserId) {
+        var url = "/BuyRelation/findByUserNodeId?userId="+nowUserId+'&page='+page;
+
+        var lastTime = $("#lastTime").val();
+        var goodId = $("#goodId").val();
+        var goodName = $("#goodName").val();
+        var price = $("#price").val();
+        var goodPic = $("#goodPic").val();
+        var buyTimes = $("#buyTimes").val();
+
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            async:false,
+            data: {
+                carTime:lastTime,
+                buyTimes:buyTimes,
+                phoneNode:{
+                    goodId:goodId,
+                    goodName:goodName,
+                    price:price,
+                    goodPic:goodPic
+                }
+            },
+            success: function (data) {
+
+                for (var i=0;i<data.length;i++){
+                    ht+='<li><section class="aui-crl">';
+                    ht+='<img src="'+data[i].phoneNode.goodPic+'">';
+                    ht+='</section><div style="width:auto; padding-left:10px">';
+                    ht+='<h2>'+data[i].phoneNode.goodName+'<h2>';
+                    ht+='<p class="aui-o">'+data[i].lastTime+'<p class="aui-o">';
+                    ht+='<p class="aui-o">购买次数：'+data[i].buyTimes+'<p class="aui-o">';
+                    ht+='<p class="money"><em class="aui-redd">'+data[i].phoneNode.price+'￥</em>';
+                    // ht+='<p id="del_'+data[i].phoneNode.goodId+'" class="num">删除</p>';
+                        // '<input class="num" type="number" value="1"  />\n' +
+                    ht+='</p></div></li>';
+
+                }
+                $("#goodlist").html(ht);
+
+                for (var i=0;i<data.length;i++) {
+                    $('#del_'+data[i].phoneNode.goodId).on("click",del);
+                }
+                if (data.length == 0){
+                    var hh= '<h5 style="text-align:center;">到底了</h5>';
+                    $("#daodi").html(hh);
+                }
+            },error:function () {
+                //var hh= '<h5 style="text-align:center;">到底了</h5>';
+                // $("#daodi").html(ht);
+            }
+
+        })
+
+    };
+
+</script>
+
+<!--购买/删除-->
+<script>
+    function del() {
+        var id = $(this).attr("id");
+        var index = id.substr(4,id.length);
+        var url = '/Car/eliminate';
+        var goodId = ''+index;
+        console.log(goodId);
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'post',
+            async:false,
+            data: {
+                userId:LOCAL_USERId,
+                goodId:goodId
+            },
+            success: function (data){
+
+            }
+        })
+        viewUser();
+        Dialog.init('移除成功',500);
+    };
+</script>
+
+<script>
+    function doMore(){
+        page++;
+        viewUser();
+    }
+</script>
+
+
+<script>
+    window.onload = function(){
+        viewUser();
+        $("#domore").on("click",doMore);
+    }
+</script>
+
+
+<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/static/js/car/car-js.js"></script>
+<script type="text/javascript" src="/static/js/car/car-mi.js"></script>
+<script src="/static/js/dialog/mDialogMin.js"></script>
+</body>
+</html>
