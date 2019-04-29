@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>毕业设计</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/static/css/ui.css}">
+    <link th:href="@{./favicon.ico}" type="image/x-icon" rel="icon">
+    <!--<link th:href="@{./iTunesArtwork.png}" sizes="114x114" rel="apple-touch-icon-precomposed">-->
+
+</head>
+<body >
+
+<div class="aui-container">
+    <div class="aui-page">
+        <!-- 头部 begin-->
+        <div class="header">
+            <div class="aui-header-bg" style="background:#ff5a5f;"></div>
+            <div class="toolbar statusbar-padding" style="min-height:50px">
+                <button class="bar-button back-button"><i class="icon icon-sao"></i></button>
+                <div class="header-title" style="height:50px; padding:0 50px">
+                    <div class="title aui-title-input"><input id="searchInput" type="text" placeholder="搜一搜"></div>
+                </div>
+                <a>
+                    <button id="startSearch" class="icon aui-icon-mag"></button>
+                </a>
+
+            </div>
+        </div>
+        <div style="height:50px"></div>
+
+
+
+        <div style="height:44px"></div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../static/js/pd/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../static/js/pd/aui-touchSlide.js"></script>
+
+<script>
+    function search() {
+        var content =  $("#searchInput").val();
+        var url = '/Search/get?content='+content;
+        $.ajax({
+            url: url,//url地址
+            dataType: 'json',
+            type: 'get',
+            data: {
+
+            },
+            success: function (data) {
+
+            }
+
+        })
+
+    }
+
+</script>
+
+<script type="text/javascript">
+    window.onload = function(){
+        $("#startSearch").on("click",search);
+    }
+</script>
+
+
+<script src="../static/js/ba/aui-scroll.js" type="text/javascript" charset="utf-8"></script>
+<script src="../static/js/ba/aui-index.js" type="text/javascript" charset="utf-8"></script>
+<script src="../static/js/ba/aui-swipe.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>

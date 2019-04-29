@@ -53,4 +53,9 @@ public class IndexController {
         return "classpage";
     }
 
+    @RequestMapping("search")
+    public String showSearch(){
+        return "search";
+    }
+
 }
