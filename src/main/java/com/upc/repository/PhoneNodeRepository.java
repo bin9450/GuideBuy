@@ -53,4 +53,7 @@ public interface PhoneNodeRepository extends Neo4jRepository<PhoneNode,Long> {
             "return count(c)")
     int countByBrandStyle(@Param("name") String name);
 
+/*    @Query("")
+    List<PhoneNode> findByNameLike(@Param("name") String name);*/
+
 }

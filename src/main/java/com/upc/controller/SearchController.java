@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Author: Pan
@@ -21,9 +22,14 @@ public class SearchController {
     @Autowired
     SearchService searchService;
 
-    @RequestMapping("/get")
-    public HashMap<?,?> get(@RequestParam String content){
-        return searchService.get(content);
+    @RequestMapping("/sethotsearch")
+    public void setHotSearch(@RequestParam String search){
+        searchService.setHotSearch(search);
+    }
+
+    @RequestMapping("/gethotsearch")
+    public List<HashMap<String,String>> getHotSearch(){
+        return searchService.getHotSearch();
     }
 
 

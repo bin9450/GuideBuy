@@ -6578,6 +6578,13 @@ footer.logo img {
   box-sizing: border-box;
   position: relative;
 }
+.w-4 {
+  width: 25%;
+  float: left;
+  padding: .6rem .4rem;
+  box-sizing: border-box;
+  position: relative;
+}
 .w-3:nth-child(3n+1) {
   padding-left: 0;
   padding-right: 5px;

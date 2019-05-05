@@ -32,11 +32,11 @@ public class MySort {
         if( rank2 == null ){
              // 不存在,则添加,默认排序为1
              redisService.zAdd(ZSET,key,1.0);
-            System.out.println("当前:"+key +":的搜索次数为"+1);
+           // System.out.println("当前:"+key +":的搜索次数为"+1);
         }else {
             // 如果存在,则获取排序值  并且+1
             int score = (int)redisService.score(ZSET, key);
-            System.out.println("当前:"+key +":的搜索次数为"+(score+1));
+           // System.out.println("当前:"+key +":的搜索次数为"+(score+1));
             redisService.zAdd(ZSET,key,score+1);
          }
 

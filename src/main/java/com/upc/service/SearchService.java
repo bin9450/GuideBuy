@@ -1,14 +1,20 @@
 package com.upc.service;
 
 import com.upc.config.AipNlpConfig;
+import com.upc.config.MySort;
 import com.upc.entity.SearchKind;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @Author: Pan
@@ -19,32 +25,34 @@ import java.util.HashMap;
 @Service
 public class SearchService {
 
-    AipNlpConfig aipNlpConfig = new AipNlpConfig();
+    @Autowired
+    MySort mySort;
+    @Autowired
+    AipNlpService aipNlpService;
 
-    public HashMap<?,?> get(String text){
-        JSONObject result = aipNlpConfig.getResult(text);
-        JSONArray jsonArray  = result.getJSONArray("items");
-        HashMap<String,String> hashMap = new HashMap<>();
-        for (int i=0;i<jsonArray.length();i++) {
-            JSONObject job = jsonArray.getJSONObject(i);
-            String value = job.getString("ne");
-            String value1 = job.getString("pos");
-
-            if (value.equals(SearchKind.ORG.getKind())||
-                    value1.equals(SearchKind.ORG.getKind())){
-                hashMap.put(SearchKind.ORG.getName(),job.getString("item"));
-            }else if (value.equals(SearchKind.nz.getKind())||
-                    value1.equals(SearchKind.nz.getKind())){
-                hashMap.put(SearchKind.nz.getName(),job.getString("item"));
-            }else if ( value.equals(SearchKind.m.getKind())||
-                    value1.equals(SearchKind.m.getKind()) ){
-                hashMap.put(SearchKind.m.getName(),job.getString("item"));
+    public void setHotSearch (String search){
+        HashMap<String,String> hashMap = aipNlpService.get(search);
+        String sg = "";
+      //  hashMap.get("Company")+hashMap.get("Name")+hashMap.get("No");
+        for (String key : hashMap.keySet()){
+            String value = hashMap.get(key);
+            if (value != null){
+                sg += value;
             }
         }
-
-        return hashMap;
+        //System.out.println("我要搜索的内容"+sg);
+        mySort.sort(sg);
     }
 
-
+    public List<HashMap<String,String>> getHotSearch(){
+        Set<Object> zset = mySort.findZset(0,10);
+        List<HashMap<String,String>> list = new ArrayList<>();
+        for (Object o:zset){
+            HashMap<String,String> hashMap = new HashMap<>();
+            hashMap.put("content",o.toString());
+            list.add(hashMap);
+       }
+        return  list;
+    }
 
 }
