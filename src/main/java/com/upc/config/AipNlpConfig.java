@@ -28,7 +28,7 @@ public class AipNlpConfig {
         // 调用接口
        // String text = "华为手机mate20pro";
         JSONObject res = client.lexer(text);
-       // System.out.println(res.toString(2));
+        System.out.println(res.toString(2));
        return res;
     }
 

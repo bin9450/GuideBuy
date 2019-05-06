@@ -1,5 +1,6 @@
 package com.upc.controller;
 
+import com.upc.domain.node.PhoneNode;
 import com.upc.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,5 +33,9 @@ public class SearchController {
         return searchService.getHotSearch();
     }
 
+    @RequestMapping("/findByNameLike")
+    public List<PhoneNode> findByNameLike(String name , int page){
+        return searchService.findByNameLike(name,page);
+    }
 
 }

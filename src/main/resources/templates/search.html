@@ -68,8 +68,8 @@
                 -->
             </ul>
         </div>
-<!--        <p id="domore" class="pd-sold">加载更多</p>
-        <div id="daodi"></div>-->
+        <p id="domore" class="pd-sold">加载更多</p>
+
     </div>
 </div>
 
@@ -78,6 +78,8 @@
 
 <script>
     function search() {
+        page = 1 ;
+        ht = '';
         var content =  $("#searchInput").val();
         var url = '/Search/sethotsearch?search='+content;
         $.ajax({
@@ -88,9 +90,13 @@
 
             },
             success: function (data) {
+
+            },
+            error: function () {
+                showHot();
             }
         })
-        showHot();
+
     }
 
     function showHot() {
@@ -114,10 +120,11 @@
         })
 
     }
-
+    var ht = '';
+    var page = 1;
     function showSearch() {
         var content =  $("#searchInput").val();
-        var url = ''+content;
+        var url = '/Search/findByNameLike?name='+content+'&page='+page;
 
         var goodId = $("#goodId").val();
         var goodName = $("#goodName").val();
@@ -139,7 +146,7 @@
                 goodPic: goodPic
             },
             success: function (data) {
-                var ht = '';
+
                 for (var i = 0;i < data.length;i++){
                     ht+='<li ><section class="aui-crl" style="padding-left:15px">';
                     ht+='<a href="/page?goodId=' +data[i].goodId + '">';
@@ -152,18 +159,25 @@
                     ht+='<p class="money"><em class="aui-redd">'+data[i].price+'￥</em>';
                     ht+='</p></div></li>';
                 }
-                $("#showhot").html(ht);
+                $("#goodlist").html(ht);
             }
         })
 
+    }
+
+    function doMore() {
+        page++;
+        showSearch();
     }
 
 </script>
 
 <script type="text/javascript">
     window.onload = function(){
-        $("#startSearch").on("click",search);
         showHot();
+        $("#startSearch").on("click",search);
+        $("#startSearch").on("click",showSearch);
+        $("#domore").on("click",doMore);
     }
 </script>
 
