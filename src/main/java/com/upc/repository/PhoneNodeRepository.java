@@ -53,15 +53,17 @@ public interface PhoneNodeRepository extends Neo4jRepository<PhoneNode,Long> {
             "return count(c)")
     int countByBrandStyle(@Param("name") String name);
 
-    @Query("match (co:Company)-[s:SELLING_WITH]->(ph:Phone)" +
+    @Query("match (co:Company)-[s:SELLING_WITH]->(ph:Phone) " +
             " where ph.good_name =~ {searchName} " +
             " return distinct ph as phone " +
-            "skip {skip} limit {limit}" +
+            "order by ph.comment desc " +
+            "skip {skip} limit {limit} " +
             " union " +
             "match (co2:Company)-[s2:SELLING_WITH]->(ph2:Phone) " +
             "where ph2.good_name =~ {searchName} " +
             "optional match (co2)-[s3:SELLING_WITH]->(ph3:Phone) " +
             "return distinct ph3 as phone " +
+            "order by ph3.comment desc " +
             "skip {skip} limit {limit} ")
     List<PhoneNode> findByNameLike(@Param("searchName") String searchName,
                                    @Param("skip") int skip,

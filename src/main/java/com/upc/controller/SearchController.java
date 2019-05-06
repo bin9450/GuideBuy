@@ -25,7 +25,11 @@ public class SearchController {
 
     @RequestMapping("/sethotsearch")
     public void setHotSearch(@RequestParam String search){
-        searchService.setHotSearch(search);
+        List<PhoneNode> result = searchService.findByNameLike(search,1);
+        if (result.size() > 0){
+            searchService.setHotSearch(search);
+        }
+
     }
 
     @RequestMapping("/gethotsearch")

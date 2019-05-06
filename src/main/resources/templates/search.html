@@ -41,7 +41,7 @@
 ">
         <h5>热搜</h5>
         <ul id="showhot">
-           <!-- <li class="w-4"> <span>围巾围脖</span></li>-->
+
 
         </ul></section>
 </div>
@@ -52,20 +52,7 @@
     <div class="main_con" style="margin-bottom:0;">
         <div class="main_con_goods">
             <ul id="goodlist">
-<!--
-                <li >
-                    <section class="aui-crl" style="padding-left:15px">
-                        <img src="images/img/b5.jpg">
-                    </section>
-                    <div style="width: 225px; padding-left: 10px;" class="">
-                        <h2>2017春装新款时尚女装宽松贴布开衫针织衫NG5836</h2>
-                        <p class="aui-o">颜色分类:黑色,尺码:M</p>
-                        <p class="money"><em class="aui-redd">90￥</em>
-                            <a href="car.html" style="color:#ff5000;border:1px solid #ff5000; padding:2px 5px;font-size:12px; border-radius:3px">加入购物车</a>
-                        </p>
-                    </div>
-                </li>
-                -->
+
             </ul>
         </div>
         <p id="domore" class="pd-sold">加载更多</p>
@@ -110,12 +97,18 @@
                 content:content
             },
             success: function (data) {
-                console.log(data);
+               // console.log(data);
                 var ht = '';
                 for (var i=0;i<data.length;i++){
                     ht+=' <li id="li_'+i+'" class="w-3"> <span>'+data[i].content+'</span></li>';
                 }
+
                 $("#showhot").html(ht);
+                for(var i=0;i<data.length;i++){
+                    $('#li_'+i).on("click",clickSearch);
+                    $('#li_'+i).on("click",search);
+                    $('#li_'+i).on("click",showSearch);
+                }
             }
         })
 
@@ -168,6 +161,11 @@
     function doMore() {
         page++;
         showSearch();
+    }
+
+    function clickSearch() {
+        var content = $(this).children("span").text();
+        document.getElementById("searchInput").value = content;
     }
 
 </script>
