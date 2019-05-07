@@ -27,8 +27,9 @@ public class AipNlpService {
             JSONObject job = jsonArray.getJSONObject(i);
             String value = job.getString("ne");
             String value1 = job.getString("pos");
-            if (value1.equals("m"))
+            if ("m".equals(value1)) {
                 continue;
+            }
             if (value.equals(SearchKind.ORG.getKind())||
                     value1.equals(SearchKind.ORG.getKind())){
                 hashMap.put(SearchKind.ORG.getName(),job.getString("item"));

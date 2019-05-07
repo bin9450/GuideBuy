@@ -18,9 +18,9 @@ import java.util.List;
 @Repository
 public interface PhoneNodeRepository extends Neo4jRepository<PhoneNode,Long> {
 
-    PhoneNode findByGoodName(@Param("good_name") String good_name);
+    PhoneNode findByGoodName(@Param("good_name") String goodName);
 
-    Collection<PhoneNode> findByGoodNameLike(@Param("good_name") String good_name);
+    Collection<PhoneNode> findByGoodNameLike(@Param("good_name") String goodName);
 
     @Query("MATCH (n:Phone) where n.good_id = {goodId} RETURN n")
     PhoneNode findByGoodId(@Param("goodId") int goodId);

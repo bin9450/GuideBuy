@@ -1,7 +1,11 @@
 package com.upc.repository;
 
+import com.upc.domain.node.PhoneNode;
+import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @Author: Pan
@@ -10,6 +14,9 @@ import org.springframework.stereotype.Repository;
  **/
 
 @Repository
-public interface RecommendRepository extends Neo4jRepository {
+public interface RecommendRepository  {
+
+    @Query("/")
+    List<PhoneNode> find();
 
 }

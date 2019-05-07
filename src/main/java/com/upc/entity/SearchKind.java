@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
  * @Description:
  **/
 
+@SuppressWarnings("AlibabaEnumConstantsMustHaveComment")
 @Getter
 @NoArgsConstructor
 public enum SearchKind {
