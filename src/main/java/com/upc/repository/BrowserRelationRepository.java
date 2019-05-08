@@ -15,6 +15,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BrowserRelationRepository extends  Neo4jRepository<BrowserRelation,Long> {
 
+    /**
+     * fetch browse record data by user id
+     * @param userId user id
+     * @param skip page number
+     * @param limit page limit
+     * @return Iterable<BrowserRelation>
+     */
     @Query("match p=(n:UserNode)-[b:BROWSE_GOOD]->(m:Phone)" +
                 "where n.user_id = {userId} " +
             "return p order by b.LastTime desc skip{skip} limit{limit}")
@@ -22,21 +29,45 @@ public interface BrowserRelationRepository extends  Neo4jRepository<BrowserRelat
                                                @Param("skip") int skip,
                                                @Param("limit") int limit);
 
+    /**
+     * fetch browse record data by user id and good id
+     * @param userId user id
+     * @param goodId good id
+     * @return BrowserRelation
+     */
     @Query("match p=(n:UserNode)-[b:BROWSE_GOOD]->(m:Phone) " +
             "where n.user_id = {userId} and  m.good_id = {goodId} " +
             "return p")
-    BrowserRelation findByUserAndPhone(@Param("userId") int userId,@Param("goodId") int goodId);
+    BrowserRelation findByUserAndPhone(@Param("userId") int userId,
+                                       @Param("goodId") int goodId);
 
+    /**
+     * fetch browsing record data by good id
+     * @param goodId good id
+     * @return BrowserRelation
+     */
     @Query("match p=(n:UserNode)-[b:BROWSE_GOOD]->(m:Phone) " +
             "where m.good_id = {goodId} return p")
     Iterable<BrowserRelation> findByPhoneNodeId(@Param("goodId") int goodId);
 
+    /**
+     * create browseing record data by user id and good id
+     * @param userId user id
+     * @param goodId page number
+     * @param lastTime  recent browsing time
+     */
     @Query("MATCH (n:UserNode),(m:Phone) " +
             "where n.user_id = {userId} and m.good_id = {goodId} " +
             "create (n)-[b:BROWSE_GOOD{BrowseTimes:1,LastTime:{lastTime} }]->(m)")
     void createBrowserRelation(@Param("userId") int userId,@Param("goodId") int goodId,
                                @Param("lastTime") String lastTime);
 
+    /**
+     * update browseing record data by user id and good id
+     * @param userId user id
+     * @param goodId page number
+     * @param lastTime  recent browsing time
+     */
     @Query("MATCH (n:UserNode)-[b:BROWSE_GOOD]->(m:Phone)" +
             " where n.user_id = {userId} and m.good_id = {goodId} " +
             "set b.BrowseTimes = b.BrowseTimes + 1 " +

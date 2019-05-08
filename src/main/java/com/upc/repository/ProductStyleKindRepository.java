@@ -16,7 +16,20 @@ import java.util.Collection;
 @Repository
 public interface ProductStyleKindRepository extends Neo4jRepository<ProductStyleKind,Long> {
 
+    /**
+     * fetch ProductStyleKind data by name
+     *
+     * @param  name Brand Style Kind Name
+     * @return BrandStyleKind
+     */
     ProductStyleKind findByName(@Param("name") String name);
+
+    /**
+     * fetch ProductStyleKind data by name fuzzy query
+     *
+     * @param name Brand Style Kind Name
+     * @return Collection<BrandStyleKind>
+     */
     Collection<ProductStyleKind> findByNameLike(@Param("name") String name);
 
 /*

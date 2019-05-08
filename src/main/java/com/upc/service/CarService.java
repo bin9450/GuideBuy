@@ -4,6 +4,7 @@ import com.upc.domain.relations.CarRelation;
 import com.upc.entity.BuyOrder;
 import com.upc.entity.ShopCar;
 import com.upc.mapper.ShopCarMapper;
+import com.upc.repository.PhoneNodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,8 @@ public class CarService {
     CarRelationService carRelationService;
     @Autowired
     BuyOrderService buyOrderService;
+    @Autowired
+    PhoneNodeRepository phoneNodeRepository;
 
     public List<ShopCar> selInfo(String userId,int page){
         int size = 10;
@@ -43,13 +46,18 @@ public class CarService {
         String carTime = sdf.format(date);
         shopCar.setDoTime(date);
         CarRelation result = carRelationService.findByUserAndPhone(userId,goodId);
+
         if (result == null){
+            int comment = 25;
+            phoneNodeRepository.setComment(goodId,comment);
+
             shopCarMapper.insert(shopCar);
             carRelationService.createCarRelation(userId,goodId,carTime);
             return carRelationService.findByUserAndPhone(userId,goodId);
         }else{
             return null;
         }
+
     }
 
     public void eliminate(ShopCar shopCar){

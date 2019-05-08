@@ -3,6 +3,7 @@ package com.upc.service;
 import com.upc.domain.relations.BuyRelation;
 import com.upc.entity.BuyOrder;
 import com.upc.mapper.BuyOrderMapper;
+import com.upc.repository.PhoneNodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class BuyOrderService {
     BuyOrderMapper buyOrderMapper;
     @Autowired
     BuyRelationService buyRelationService;
+    @Autowired
+    PhoneNodeRepository phoneNodeRepository;
 
     public List<BuyOrder> selInfo(String userId,int page){
         int size = 10;
@@ -47,6 +50,9 @@ public class BuyOrderService {
         }else {
             buyRelationService.updateInfo(userId,goodId,lastTime);
         }
+
+        int comment = 30;
+        phoneNodeRepository.setComment(goodId,comment);
 
     }
 

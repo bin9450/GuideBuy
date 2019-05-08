@@ -18,9 +18,28 @@ import java.util.List;
 @Repository
 public interface CompanyRepository extends Neo4jRepository<Company,Long>{
 
+    /**
+     * fetch BrandStyleKind data by name
+     *
+     * @param  shopName Company Name
+     * @return Company
+     */
     Company findByShopName(@Param("shop_name") String shopName);
+
+    /**
+     * fetch BrandStyleKind data by name fuzzy query
+     *
+     * @param  shopName Company Name
+     * @return  Collection<Company>
+     */
     Collection<Company> findByShopNameLike(@Param("shop_name") String shopName);
 
+    /**
+     * fetch Company data by Brand Style Kind Name
+     *
+     * @param  name Brand Style Kind Name
+     * @return  Collection<Company>
+     */
     @Query("match (a:Brand_Style_Kind)-[:Contain]->(b:Company)-[:SELLING_WITH]->(c:Phone)" +
             " where a.name = {name} " +
             "optional match p=(b:Company)-[s:SELLING_WITH]->(c:Phone) " +

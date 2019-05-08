@@ -3,6 +3,7 @@ package com.upc.service;
 import com.upc.domain.relations.CollectionRelation;
 import com.upc.entity.CollectionGood;
 import com.upc.mapper.CollectionMapper;
+import com.upc.repository.PhoneNodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class CollectionService {
     CollectionMapper collectionMapper;
     @Autowired
     CollectionRelationService collectionRelationService;
+    @Autowired
+    PhoneNodeRepository phoneNodeRepository;
 
     public List<CollectionGood> selInfo(String userId ,int page){
         int size = 10;
@@ -58,6 +61,9 @@ public class CollectionService {
         }else {
             collectionRelationService.updateInfo(userId,goodId,lastTime);
         }
+
+        int comment = 15;
+        phoneNodeRepository.setComment(goodId,comment);
     }
 
 }

@@ -16,7 +16,5 @@ import java.util.List;
 @Repository
 public interface RecommendRepository  {
 
-    @Query("/")
-    List<PhoneNode> find();
 
 }

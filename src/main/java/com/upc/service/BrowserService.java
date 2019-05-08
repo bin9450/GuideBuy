@@ -3,6 +3,7 @@ package com.upc.service;
 import com.upc.domain.relations.BrowserRelation;
 import com.upc.entity.Browser;
 import com.upc.mapper.BrowserMapper;
+import com.upc.repository.PhoneNodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class BrowserService {
     BrowserMapper browserMapper;
     @Autowired
     BrowserRelationService browserRelationService;
+    @Autowired
+    PhoneNodeRepository phoneNodeRepository;
 
     public List<Browser> selInfo(String userId ,int page){
         int size = 10;
@@ -47,6 +50,8 @@ public class BrowserService {
             browserRelationService.updateInfo(userId,goodId,lastTime);
         }
 
+        int comment = 5;
+        phoneNodeRepository.setComment(goodId,comment);
     }
 
 }
