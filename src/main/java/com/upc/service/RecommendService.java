@@ -54,7 +54,7 @@ public class RecommendService {
     public List<PhoneNode> getRecommendPhone(int userId,String company){
         int avgBrowseTimesCom = recommendRepository.avgBrowseTimesCom(userId,company);
         List<PhoneNode> result = recommendRepository.moreBrowsePhone(userId,company,avgBrowseTimesCom);
-        result.addAll(recommendRepository.browsePhone(  company));
+        result.addAll(recommendRepository.browsePhone( company));
         return result;
     }
 
