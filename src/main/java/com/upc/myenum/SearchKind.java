@@ -1,4 +1,4 @@
-package com.upc.entity;
+package com.upc.myenum;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

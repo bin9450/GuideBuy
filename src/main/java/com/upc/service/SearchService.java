@@ -1,17 +1,10 @@
 package com.upc.service;
 
-import com.upc.config.AipNlpConfig;
 import com.upc.config.MySort;
 import com.upc.domain.node.PhoneNode;
-import com.upc.entity.SearchKind;
 import com.upc.repository.PhoneNodeRepository;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;

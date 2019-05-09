@@ -155,6 +155,33 @@
     <script src="../static/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 
     <script type="text/javascript" charset="utf-8">
+        var nowUserId=null;
+        function viewUser() {
+
+            var url = '/usernode/getUser';
+            var userId = $("#userId").val();
+            var nickName = $("#nickName").val();
+            var userName = $("#userName").val();
+            $.ajax({
+                url: url,//url地址
+                dataType: 'json',
+                type: 'get',
+                async:false,
+                data: {
+                    userId:userId,
+                    nickName:nickName,
+                    userName:userName
+                },
+                success: function (data) {
+                    nowUserId = data.userId;
+                }
+            })
+
+        };
+        window.onload = function(){
+            viewUser();
+        }
+
 		$(function(){
 			//创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,重置列表数据;
 			var mescroll = new MeScroll("mescroll", {
@@ -227,7 +254,7 @@
 
               	$.ajax({
 		                type: 'GET',
-		                url: '/PhoneNode/random',
+		                url: '/recommend/get?userId='+nowUserId ,
 		                //url: '/PhoneNode/allPage?pageNum='+pageNum+"&pageSize="+pageSize,
 		                dataType: 'json',
                     data: {

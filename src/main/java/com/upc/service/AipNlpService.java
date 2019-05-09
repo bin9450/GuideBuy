@@ -1,7 +1,7 @@
 package com.upc.service;
 
 import com.upc.config.AipNlpConfig;
-import com.upc.entity.SearchKind;
+import com.upc.myenum.SearchKind;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
