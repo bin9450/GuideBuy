@@ -55,6 +55,12 @@ public interface RecommendRepository extends Neo4jRepository {
             "return distinct c2")
     List<Company> getSecCompany(@Param("userId") int userId);
 
+/*
+
+    @Query("")
+    List<Company> getCompany(@Param("userId") int userId);
+*/
+
     /**
      * Lock the user's favorite style by recommending the company's style
      * @param userId user id
@@ -135,6 +141,20 @@ public interface RecommendRepository extends Neo4jRepository {
             "where c.shop_name = {company} \n" +
             "return p")
     List<PhoneNode> browsePhone(@Param("company") String company);
+
+    @Query("match (p:Phone)<-[b:BROWSE_GOOD]-(u:UserNode)\n" +
+            "where b.BrowseTimes>0\n" +
+            "return p order by b.BrowseTimes desc")
+    List<PhoneNode> getMaxBrowsePhone();
+
+    @Query("match (p:Phone)<-[c:COLLECT_GOOD]-(u:UserNode)\n" +
+            "return p")
+    List<PhoneNode> getMaxCollectPhone();
+
+    @Query("match (p:Phone)<-[b:BUY_GOOD]-(u:UserNode)\n" +
+            "where b.BuyTimes>0\n" +
+            "return p order by b.BuyTimes desc")
+    List<PhoneNode> getMaxBuyPhone();
 
     /**
      * Calculate the average number of purchases for this user

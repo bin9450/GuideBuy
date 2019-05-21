@@ -34,6 +34,7 @@ public class RecommendController {
                 result.addAll(phoneNode);
             }
         }
+        result.addAll(recommendService.getMaxPhone());
         return result;
     }
 

@@ -47,6 +47,7 @@ public class RecommendService {
             }
         }
         companies.addAll(otherCompanies);
+        companies.addAll(recommendRepository.getSecCompany(userId));
         return companies;
     }
 
@@ -55,6 +56,15 @@ public class RecommendService {
         int avgBrowseTimesCom = recommendRepository.avgBrowseTimesCom(userId,company);
         List<PhoneNode> result = recommendRepository.moreBrowsePhone(userId,company,avgBrowseTimesCom);
         result.addAll(recommendRepository.browsePhone( company));
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<PhoneNode> getMaxPhone(){
+        List<PhoneNode> result = new ArrayList<>();
+        result.addAll(recommendRepository.getMaxBuyPhone());
+        result.addAll(recommendRepository.getMaxCollectPhone());
+        result.addAll(recommendRepository.getMaxBrowsePhone());
         return result;
     }
 
