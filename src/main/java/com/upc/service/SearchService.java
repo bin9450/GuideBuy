@@ -38,7 +38,7 @@ public class SearchService {
             }
         }
         //System.out.println("我要搜索的内容"+sg);
-        mySort.sort(sg);
+        mySort.sort(search);
     }
 
     public List<HashMap<String,String>> getHotSearch(){
@@ -58,6 +58,7 @@ public class SearchService {
         int limit = size;
         String likeName = ".*(?i)"+name+".*";
         List<PhoneNode> result = phoneNodeRepository.findByNameLike(likeName,skip,limit);
+
         return result;
     }
 
