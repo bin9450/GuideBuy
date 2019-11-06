@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
     User sel(int id);
     User login(String userName,String passWord);
-    User isRepeat(String userName);
+    User isRepeat   (String userName);
     int register(User user);
 
 }

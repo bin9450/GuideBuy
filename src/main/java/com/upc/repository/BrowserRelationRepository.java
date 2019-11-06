@@ -59,7 +59,8 @@ public interface BrowserRelationRepository extends  Neo4jRepository<BrowserRelat
     @Query("MATCH (n:UserNode),(m:Phone) " +
             "where n.user_id = {userId} and m.good_id = {goodId} " +
             "create (n)-[b:BROWSE_GOOD{BrowseTimes:1,LastTime:{lastTime} }]->(m)")
-    void createBrowserRelation(@Param("userId") int userId,@Param("goodId") int goodId,
+    void createBrowserRelation(@Param("userId") int userId,
+                               @Param("goodId") int goodId,
                                @Param("lastTime") String lastTime);
 
     /**
